@@ -12,8 +12,8 @@ import {
   validatorCompiler,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod';
-import { healthRoute } from '../routes/health';
-import { env } from './env';
+import { env } from '@/http/env';
+import { healthRoute } from '@/http/routes/health';
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -50,7 +50,9 @@ app.register(scalar, {
 app.register(healthRoute);
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
-  console.log(`Server is running on url http://localhost:3333`);
+  console.log(
+    `Server is running on url http://localhost:3333 | Visit http://localhost:3333/scalar to view the documentation.`
+  );
 });
 
 if (env.NODE_ENV === 'development') {
