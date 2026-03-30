@@ -8,7 +8,7 @@
     "dev": "tsx watch --env-file=.env src/http/server.ts",
     "start": "dotenv -e ./.env -- node dist/http/server.ts",
     "seed": "tsx --env-file=.env src/infra/db/seed.ts",
-    "test:unit": "vitest run",
+    "test": "vitest run",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate"
   },

@@ -1,28 +1,51 @@
-import { User } from '../../core/entities/user';
-import type { UsersRepository } from '../../core/repositories/users-repository';
+import type { User } from '../../core/entities/user';
+import type {
+  UserRepositoryResponse,
+  UsersRepository,
+} from '../../core/repositories/users-repository';
 
 export class InMemoryUsersRepository implements UsersRepository {
   public items: User[] = [];
 
-  async findById(id: string): Promise<User | null> {
+  async findById(id: string): Promise<UserRepositoryResponse | null> {
     const user = this.items.find((item) => item.id.toString() === id);
 
-    return user ?? null;
+    if (!user) {
+      return null;
+    }
+
+    return {
+      user,
+    };
   }
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<UserRepositoryResponse | null> {
     const user = this.items.find((item) => item.email === email);
 
-    return user ?? null;
+    if (!user) {
+      return null;
+    }
+
+    return {
+      user,
+    };
   }
 
-  async create(user: User): Promise<void> {
+  async create(user: User): Promise<UserRepositoryResponse> {
     this.items.push(user);
+
+    return {
+      user,
+    };
   }
 
-  async save(user: User): Promise<void> {
+  async save(user: User): Promise<UserRepositoryResponse> {
     const userIndex = this.items.findIndex((item) => item.id.equals(user.id));
 
     this.items[userIndex] = user;
+
+    return {
+      user,
+    };
   }
 }

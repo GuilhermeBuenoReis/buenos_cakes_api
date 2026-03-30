@@ -1,14 +1,14 @@
 import { faker } from '@faker-js/faker';
 import { User, UserRole } from '../../core/entities/user';
-import { UniqueEntityID } from '../../core/utils/unique-entity-id';
+import type { UniqueEntityID } from '../../core/utils/unique-entity-id';
 
-type UserFactoryOverrides = Partial<Parameters<typeof User.create>[0]>;
+type UserProps = Parameters<typeof User.create>[0];
 
 export function makeUser(
-  overrides: UserFactoryOverrides = {},
+  override: Partial<UserProps> = {},
   id?: UniqueEntityID
 ) {
-  return User.create(
+  const user = User.create(
     {
       name: faker.person.fullName(),
       email: faker.internet.email().toLowerCase(),
@@ -17,8 +17,10 @@ export function makeUser(
       phone: faker.helpers.maybe(() => faker.phone.number()) ?? null,
       role: faker.helpers.arrayElement([UserRole.CUSTOMER, UserRole.ADMIN]),
       createdAt: faker.date.recent(),
-      ...overrides,
+      ...override,
     },
     id
   );
+
+  return user;
 }
