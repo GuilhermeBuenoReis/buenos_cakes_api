@@ -12,7 +12,7 @@ export function makeUser(
     {
       name: faker.person.fullName(),
       email: faker.internet.email().toLowerCase(),
-      passwordHash: faker.internet.password(),
+      password: faker.internet.password(),
       cpf: faker.helpers.maybe(() => faker.string.numeric(11)) ?? null,
       phone: faker.helpers.maybe(() => faker.phone.number()) ?? null,
       role: faker.helpers.arrayElement([UserRole.CUSTOMER, UserRole.ADMIN]),

@@ -10,7 +10,7 @@ export enum UserRole {
 interface UserProps {
   name: string;
   email: string;
-  passwordHash: string;
+  password: string;
   cpf?: string | null;
   phone?: string | null;
   role: UserRole;
@@ -27,8 +27,8 @@ export class User extends Entity<UserProps> {
     return this.props.email;
   }
 
-  get passwordHash() {
-    return this.props.passwordHash;
+  get password() {
+    return this.props.password;
   }
 
   get cpf() {
@@ -65,8 +65,8 @@ export class User extends Entity<UserProps> {
     this.touch();
   }
 
-  set passwordHash(passwordHash: string) {
-    this.props.passwordHash = passwordHash;
+  set password(password: string) {
+    this.props.password = password;
     this.touch();
   }
 

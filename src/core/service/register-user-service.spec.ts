@@ -31,7 +31,7 @@ describe('RegisterUserService', () => {
 
     if (result.isSuccess()) {
       expect(result.value.user.email).toBe(user.email);
-      expect(result.value.user.passwordHash).toBe(`${user.password}_hashed`);
+      expect(result.value.user.password).toBe(`${user.password}_hashed`);
       expect(result.value.user.role).toBe('customer');
     }
   });
@@ -39,14 +39,14 @@ describe('RegisterUserService', () => {
   it('should not register a user with the same email twice', async () => {
     const existingUser = makeUser({
       email: 'john@example.com',
-      passwordHash: 'existing-password-hash',
+      password: 'existing-password-hash',
     });
 
     await inMemoryUsersRepository.create(existingUser);
 
     const user = {
       name: 'Jane Doe',
-      email: existingUser.email,
+      email: 'john@example.com',
       password: '123456',
     };
 

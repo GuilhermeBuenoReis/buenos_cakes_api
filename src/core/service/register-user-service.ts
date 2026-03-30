@@ -30,22 +30,22 @@ export class RegisterUserService {
   }: RegisterUserServiceRequest): Promise<RegisterUserServiceResponse> {
     const userWithSameEmail = await this.usersRepository.findByEmail(email);
 
-    if (userWithSameEmail?.user) {
+    if (userWithSameEmail) {
       return error(new UserAlreadyExistsError(email));
     }
 
-    const passwordHash = await this.hashGenerator.hash(password);
+    const hashedPassword = await this.hashGenerator.hash(password);
 
     const user = User.create({
       name,
       email,
-      passwordHash,
+      password: hashedPassword,
     });
 
-    const createdUser = await this.usersRepository.create(user);
+    await this.usersRepository.create(user);
 
     return success({
-      user: createdUser.user,
+      user,
     });
   }
 }
