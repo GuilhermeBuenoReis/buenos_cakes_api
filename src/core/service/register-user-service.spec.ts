@@ -1,7 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { FakeHasher } from '../../test/cryptography/fake-hash-generator';
 import { makeUser } from '../../test/factories/make-user';
+import { FailingUsersRepository } from '../../test/repositories/failing-users-repository';
 import { InMemoryUsersRepository } from '../../test/repositories/in-memory-users-repository';
+import { UnexpectedError } from './errors/unexpected-error';
 import { UserAlreadyExistsError } from './errors/user-already-exists-error';
 import { RegisterUserService } from './register-user-service';
 
@@ -57,6 +59,25 @@ describe('RegisterUserService', () => {
 
     if (result.isError()) {
       expect(result.value).toBeInstanceOf(UserAlreadyExistsError);
+    }
+  });
+
+  it('should return an unexpected error when something goes wrong', async () => {
+    sut = new RegisterUserService(new FailingUsersRepository(), fakeHasher);
+
+    const result = await sut.execute({
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      password: '123456',
+    });
+
+    expect(result.isError()).toBe(true);
+
+    if (result.isError()) {
+      expect(result.value).toBeInstanceOf(UnexpectedError);
+      expect(result.value.message).toBe(
+        'Something went wrong. Please try again later.'
+      );
     }
   });
 });

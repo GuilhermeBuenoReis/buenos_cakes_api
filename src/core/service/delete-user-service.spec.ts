@@ -2,39 +2,37 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { makeUser } from '../../test/factories/make-user';
 import { FailingUsersRepository } from '../../test/repositories/failing-users-repository';
 import { InMemoryUsersRepository } from '../../test/repositories/in-memory-users-repository';
-import { UniqueEntityID } from '../utils/unique-entity-id';
+import { DeleteUserService } from './delete-user-service';
 import { UnexpectedError } from './errors/unexpected-error';
 import { UserNotFoundError } from './errors/user-not-found-error';
-import { GetUserByIdService } from './get-user-by-id-service';
 
 let inMemoryUsersRepository: InMemoryUsersRepository;
-let sut: GetUserByIdService;
+let sut: DeleteUserService;
 
-describe('GetUserByIdService', () => {
+describe('DeleteUserService', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository();
-    sut = new GetUserByIdService(inMemoryUsersRepository);
+    sut = new DeleteUserService(inMemoryUsersRepository);
   });
 
-  it('should get a user by id', async () => {
-    const userId = new UniqueEntityID('user-1');
-    const user = makeUser({}, userId);
+  it('should delete a user', async () => {
+    const user = makeUser();
 
     await inMemoryUsersRepository.create(user);
 
     const result = await sut.execute({
-      userId: userId.toString(),
+      userId: user.id.toString(),
     });
 
     expect(result.isSuccess()).toBe(true);
+    expect(inMemoryUsersRepository.items).toHaveLength(0);
 
     if (result.isSuccess()) {
-      expect(result.value.user.id.toString()).toBe(userId.toString());
-      expect(result.value.user.email).toBe(user.email);
+      expect(result.value.message).toBe('User deleted successfully.');
     }
   });
 
-  it('should not get a user when id does not exist', async () => {
+  it('should not delete a user when id does not exist', async () => {
     const result = await sut.execute({
       userId: 'non-existing-user-id',
     });
@@ -47,7 +45,7 @@ describe('GetUserByIdService', () => {
   });
 
   it('should return an unexpected error when something goes wrong', async () => {
-    sut = new GetUserByIdService(new FailingUsersRepository());
+    sut = new DeleteUserService(new FailingUsersRepository());
 
     const result = await sut.execute({
       userId: 'user-1',
