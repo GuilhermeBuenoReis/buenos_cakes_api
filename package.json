@@ -6,15 +6,9 @@
   "scripts": {
     "build": "tsup src",
     "dev": "tsx watch --env-file=.env src/http/server.ts",
-    "start": "dotenv -e ./.env -- node dist/infrastructure/server.js",
+    "start": "dotenv -e ./.env -- node dist/http/server.ts",
     "seed": "tsx --env-file=.env src/infra/db/seed.ts",
-    "pretest": "npm run db:migrate:test",
-    "pretest:watch": "npm run db:migrate:test",
-    "db:migrate:test": "dotenv -e .env.test -- drizzle-kit migrate",
-    "test": "dotenv -e .env.test -- vitest run",
-    "test:unit": "vitest run",
-    "test:watch": "dotenv -e .env.test -- vitest",
-    "test:ci": "dotenv -e .env.test -- vitest run",
+    "test": "vitest run",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate"
   },
@@ -39,6 +33,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.9",
+    "@faker-js/faker": "^10.4.0",
     "@types/bcrypt": "^6.0.0",
     "@types/node": "^25.5.0",
     "@types/pg": "^8.20.0",
