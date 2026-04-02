@@ -1,23 +1,11 @@
 import type { Address } from '../entities/address';
 import type { UniqueEntityID } from '../utils/unique-entity-id';
 
-export interface AddressRepositoryResponse {
-  address: Address;
-}
-
-export interface AddressesRepositoryResponse {
-  addresses: Address[];
-}
-
 export interface AddressesRepository {
-  findById(id: string): Promise<AddressRepositoryResponse | null>;
-  findManyByUserId(
-    userId: UniqueEntityID
-  ): Promise<AddressesRepositoryResponse>;
-  findDefaultByUserId(
-    userId: UniqueEntityID
-  ): Promise<AddressRepositoryResponse | null>;
-  create(address: Address): Promise<AddressRepositoryResponse>;
-  save(address: Address): Promise<AddressRepositoryResponse>;
-  delete(address: Address): Promise<AddressRepositoryResponse>;
+  findById(id: string): Promise<Address | null>;
+  findManyByUserId(userId: UniqueEntityID): Promise<Address[]>;
+  findDefaultByUserId(userId: UniqueEntityID): Promise<Address | null>;
+  create(address: Address): Promise<Address>;
+  save(address: Address): Promise<Address>;
+  delete(address: Address): Promise<void>;
 }

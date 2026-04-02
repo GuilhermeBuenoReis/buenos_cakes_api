@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { makeUser } from '../../test/factories/make-user';
-import { FailingUsersRepository } from '../../test/repositories/failing-users-repository';
+import { FailingUsersRepository } from '../../test/repositories/failures/failing-users-repository';
 import { InMemoryUsersRepository } from '../../test/repositories/in-memory-users-repository';
 import { DeleteUserService } from './delete-user-service';
 import { UnexpectedError } from './errors/unexpected-error';
