@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { Category } from '../../domain/products/enterprise/entities/category';
-import type { UniqueEntityID } from '../../core/entities/unique-entity-id';
+import { Category } from '../../src/domain/products/enterprise/entities/category';
+import type { UniqueEntityID } from '../../src/core/entities/unique-entity-id';
 
 type CategoryProps = Parameters<typeof Category.create>[0];
 

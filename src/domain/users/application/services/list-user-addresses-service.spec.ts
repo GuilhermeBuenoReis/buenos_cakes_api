@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { FailingAddressesRepository } from '../../../../test/repositories/failures/failing-addresses-repository';
-import { FailingUsersRepository } from '../../../../test/repositories/failures/failing-users-repository';
-import { makeAddress } from '../../../../test/factories/make-address';
-import { makeUser } from '../../../../test/factories/make-user';
-import { InMemoryAddressesRepository } from '../../../../test/repositories/in-memory-addresses-repository';
-import { InMemoryUsersRepository } from '../../../../test/repositories/in-memory-users-repository';
+import { FailingAddressesRepository } from '../../../../../test/repositories/failures/failing-addresses-repository';
+import { FailingUsersRepository } from '../../../../../test/repositories/failures/failing-users-repository';
+import { makeAddress } from '../../../../../test/factories/make-address';
+import { makeUser } from '../../../../../test/factories/make-user';
+import { InMemoryAddressesRepository } from '../../../../../test/repositories/in-memory-addresses-repository';
+import { InMemoryUsersRepository } from '../../../../../test/repositories/in-memory-users-repository';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
 import { UserNotFoundError } from '../errors/user-not-found-error';
 import { ListUserAddressesService } from './list-user-addresses-service';

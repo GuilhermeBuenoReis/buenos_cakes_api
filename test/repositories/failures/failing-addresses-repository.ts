@@ -1,6 +1,6 @@
-import type { Address } from '../../../domain/users/enterprise/entities/address';
-import type { AddressesRepository } from '../../../domain/users/application/repositories/addresses-repository';
-import type { UniqueEntityID } from '../../../core/entities/unique-entity-id';
+import type { Address } from '../../../src/domain/users/enterprise/entities/address';
+import type { AddressesRepository } from '../../../src/domain/users/application/repositories/addresses-repository';
+import type { UniqueEntityID } from '../../../src/core/entities/unique-entity-id';
 
 export class FailingAddressesRepository implements AddressesRepository {
   async findById(_id: string): Promise<Address | null> {

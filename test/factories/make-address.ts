@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
-import { Address } from '../../domain/users/enterprise/entities/address';
-import { UniqueEntityID } from '../../core/entities/unique-entity-id';
-import type { UniqueEntityID as UniqueEntityIDType } from '../../core/entities/unique-entity-id';
+import { Address } from '../../src/domain/users/enterprise/entities/address';
+import { UniqueEntityID } from '../../src/core/entities/unique-entity-id';
+import type { UniqueEntityID as UniqueEntityIDType } from '../../src/core/entities/unique-entity-id';
 
 type AddressProps = Parameters<typeof Address.create>[0];
 

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { makeAddress } from '../../../../test/factories/make-address';
-import { FailingAddressesRepository } from '../../../../test/repositories/failures/failing-addresses-repository';
-import { InMemoryAddressesRepository } from '../../../../test/repositories/in-memory-addresses-repository';
+import { makeAddress } from '../../../../../test/factories/make-address';
+import { FailingAddressesRepository } from '../../../../../test/repositories/failures/failing-addresses-repository';
+import { InMemoryAddressesRepository } from '../../../../../test/repositories/in-memory-addresses-repository';
 import { AddressNotFoundError } from '../errors/address-not-found-error';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
 import { SetDefaultAddressService } from './set-default-address-service';
