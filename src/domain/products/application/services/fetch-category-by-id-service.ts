@@ -1,31 +1,31 @@
 import { type Either, error, success } from '../../../../core/either';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
 import type { Category } from '../../enterprise/entities/category';
-import { CategoryWithSlugNotFoundError } from '../errors/category-with-slug-not-found-error';
+import { CategoryNotFoundError } from '../errors/category-not-found-error';
 import type { CategoriesRepository } from '../repositories/categories-repository';
 
-export interface GetCategoryBySlugServiceRequest {
-  slug: string;
+export interface FetchCategoryByIdServiceRequest {
+  categoryId: string;
 }
 
-export type GetCategoryBySlugServiceResponse = Either<
-  CategoryWithSlugNotFoundError | UnexpectedError,
+export type FetchCategoryByIdServiceResponse = Either<
+  CategoryNotFoundError | UnexpectedError,
   {
     category: Category;
   }
 >;
 
-export class GetCategoryBySlugService {
+export class FetchCategoryByIdService {
   constructor(private categoriesRepository: CategoriesRepository) {}
 
   async execute({
-    slug,
-  }: GetCategoryBySlugServiceRequest): Promise<GetCategoryBySlugServiceResponse> {
+    categoryId,
+  }: FetchCategoryByIdServiceRequest): Promise<FetchCategoryByIdServiceResponse> {
     try {
-      const category = await this.categoriesRepository.findBySlug(slug);
+      const category = await this.categoriesRepository.findById(categoryId);
 
       if (!category) {
-        return error(new CategoryWithSlugNotFoundError(slug));
+        return error(new CategoryNotFoundError(categoryId));
       }
 
       return success({

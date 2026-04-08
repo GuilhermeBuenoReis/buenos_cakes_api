@@ -4,23 +4,23 @@ import { type Either, error, success } from '../../../../core/either';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
 import { UserNotFoundError } from '../errors/user-not-found-error';
 
-export interface GetUserByIdServiceRequest {
+export interface FetchUserByIdServiceRequest {
   userId: string;
 }
 
-export type GetUserByIdServiceResponse = Either<
+export type FetchUserByIdServiceResponse = Either<
   UserNotFoundError | UnexpectedError,
   {
     user: User;
   }
 >;
 
-export class GetUserByIdService {
+export class FetchUserByIdService {
   constructor(private usersRepository: UsersRepository) {}
 
   async execute({
     userId,
-  }: GetUserByIdServiceRequest): Promise<GetUserByIdServiceResponse> {
+  }: FetchUserByIdServiceRequest): Promise<FetchUserByIdServiceResponse> {
     try {
       const user = await this.usersRepository.findById(userId);
 

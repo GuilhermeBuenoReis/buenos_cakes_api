@@ -5,17 +5,17 @@ import { InMemoryAddressesRepository } from '../../../../../test/repositories/in
 import { UniqueEntityID } from '../../../../core/entities/unique-entity-id';
 import { AddressNotFoundError } from '../errors/address-not-found-error';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
-import { GetAddressByIdService } from './get-address-by-id-service';
+import { FetchAddressByIdService } from './fetch-address-by-id-service';
 
 let inMemoryAddressesRepository: InMemoryAddressesRepository;
 let failingAddressesRepository: FailingAddressesRepository;
-let sut: GetAddressByIdService;
+let sut: FetchAddressByIdService;
 
-describe('GetAddressByIdService', () => {
+describe('FetchAddressByIdService', () => {
   beforeEach(() => {
     inMemoryAddressesRepository = new InMemoryAddressesRepository();
     failingAddressesRepository = new FailingAddressesRepository();
-    sut = new GetAddressByIdService(inMemoryAddressesRepository);
+    sut = new FetchAddressByIdService(inMemoryAddressesRepository);
   });
 
   it('should get an address by id', async () => {
@@ -53,7 +53,7 @@ describe('GetAddressByIdService', () => {
   });
 
   it('should return an unexpected error when something goes wrong', async () => {
-    sut = new GetAddressByIdService(failingAddressesRepository);
+    sut = new FetchAddressByIdService(failingAddressesRepository);
 
     const addressIdToFind = 'address-1';
 

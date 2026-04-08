@@ -5,15 +5,15 @@ import { InMemoryUsersRepository } from '../../../../../test/repositories/in-mem
 import { UniqueEntityID } from '../../../../core/entities/unique-entity-id';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
 import { UserNotFoundError } from '../errors/user-not-found-error';
-import { GetUserByIdService } from './get-user-by-id-service';
+import { FetchUserByIdService } from './fetch-user-by-id-service';
 
 let inMemoryUsersRepository: InMemoryUsersRepository;
-let sut: GetUserByIdService;
+let sut: FetchUserByIdService;
 
-describe('GetUserByIdService', () => {
+describe('FetchUserByIdService', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository();
-    sut = new GetUserByIdService(inMemoryUsersRepository);
+    sut = new FetchUserByIdService(inMemoryUsersRepository);
   });
 
   it('should get a user by id', async () => {
@@ -51,7 +51,7 @@ describe('GetUserByIdService', () => {
   });
 
   it('should return an unexpected error when something goes wrong', async () => {
-    sut = new GetUserByIdService(new FailingUsersRepository());
+    sut = new FetchUserByIdService(new FailingUsersRepository());
 
     const userIdToFind = 'user-1';
 
