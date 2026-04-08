@@ -24,8 +24,10 @@ describe('GetAddressByIdService', () => {
 
     await inMemoryAddressesRepository.create(address);
 
+    const addressIdToFind = addressId.toString();
+
     const result = await sut.execute({
-      addressId: addressId.toString(),
+      addressId: addressIdToFind,
     });
 
     expect(result.isSuccess()).toBe(true);
@@ -37,8 +39,10 @@ describe('GetAddressByIdService', () => {
   });
 
   it('should not get an address when id does not exist', async () => {
+    const nonExistingAddressId = 'non-existing-address-id';
+
     const result = await sut.execute({
-      addressId: 'non-existing-address-id',
+      addressId: nonExistingAddressId,
     });
 
     expect(result.isError()).toBe(true);
@@ -51,8 +55,10 @@ describe('GetAddressByIdService', () => {
   it('should return an unexpected error when something goes wrong', async () => {
     sut = new GetAddressByIdService(failingAddressesRepository);
 
+    const addressIdToFind = 'address-1';
+
     const result = await sut.execute({
-      addressId: 'address-1',
+      addressId: addressIdToFind,
     });
 
     expect(result.isError()).toBe(true);

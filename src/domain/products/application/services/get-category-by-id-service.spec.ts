@@ -3,64 +3,67 @@ import { makeCategory } from '../../../../../test/factories/make-category';
 import { FailingCategoriesRepository } from '../../../../../test/repositories/failures/failing-categories-repository';
 import { InMemoryCategoriesRepository } from '../../../../../test/repositories/in-memory-categories-repository';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
-import { CategorySlugAlreadyExistsError } from '../errors/category-slug-already-exists-error';
-import { CreateCategoryService } from './create-category-service';
+import { CategoryNotFoundError } from '../errors/category-not-found-error';
+import { GetCategoryByIdService } from './get-category-by-id-service';
 
 let inMemoryCategoriesRepository: InMemoryCategoriesRepository;
 let failingCategoriesRepository: FailingCategoriesRepository;
-let sut: CreateCategoryService;
+let sut: GetCategoryByIdService;
 
-describe('CreateCategoryService', () => {
+describe('GetCategoryByIdService', () => {
   beforeEach(() => {
     inMemoryCategoriesRepository = new InMemoryCategoriesRepository();
     failingCategoriesRepository = new FailingCategoriesRepository();
-    sut = new CreateCategoryService(inMemoryCategoriesRepository);
+    sut = new GetCategoryByIdService(inMemoryCategoriesRepository);
   });
 
-  it('should create a category', async () => {
-    const result = await sut.execute({
+  it('should get a category by id', async () => {
+    const category = makeCategory({
       name: 'Birthday Cakes',
       slug: 'birthday-cakes',
-      description: 'Categories for birthday cake products.',
-      imageUrl: 'https://example.com/birthday-cakes.png',
+    });
+
+    await inMemoryCategoriesRepository.create(category);
+
+    const categoryId = category.id.toString();
+
+    const result = await sut.execute({
+      categoryId,
     });
 
     expect(result.isSuccess()).toBe(true);
-    expect(inMemoryCategoriesRepository.items).toHaveLength(1);
 
     if (result.isSuccess()) {
+      expect(result.value.category.id).toEqual(category.id);
       expect(result.value.category.name).toBe('Birthday Cakes');
       expect(result.value.category.slug).toBe('birthday-cakes');
-      expect(result.value.category.isActive).toBe(true);
     }
   });
 
-  it('should not create a category with the same slug twice', async () => {
-    const existingCategory = makeCategory({
-      slug: 'birthday-cakes',
-    });
-
-    await inMemoryCategoriesRepository.create(existingCategory);
+  it('should return an error when category does not exist', async () => {
+    const nonExistingCategoryId = 'non-existing-category-id';
 
     const result = await sut.execute({
-      name: 'Party Cakes',
-      slug: 'birthday-cakes',
+      categoryId: nonExistingCategoryId,
     });
 
     expect(result.isError()).toBe(true);
-    expect(inMemoryCategoriesRepository.items).toHaveLength(1);
 
     if (result.isError()) {
-      expect(result.value).toBeInstanceOf(CategorySlugAlreadyExistsError);
+      expect(result.value).toBeInstanceOf(CategoryNotFoundError);
+      expect(result.value.message).toBe(
+        `Category with id "${nonExistingCategoryId}" does not exist.`
+      );
     }
   });
 
   it('should return an unexpected error when something goes wrong', async () => {
-    sut = new CreateCategoryService(failingCategoriesRepository);
+    sut = new GetCategoryByIdService(failingCategoriesRepository);
+
+    const categoryIdToFind = 'any-category-id';
 
     const result = await sut.execute({
-      name: 'Wedding Cakes',
-      slug: 'wedding-cakes',
+      categoryId: categoryIdToFind,
     });
 
     expect(result.isError()).toBe(true);

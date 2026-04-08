@@ -22,8 +22,10 @@ describe('GetUserByIdService', () => {
 
     await inMemoryUsersRepository.create(user);
 
+    const userIdToFind = userId.toString();
+
     const result = await sut.execute({
-      userId: userId.toString(),
+      userId: userIdToFind,
     });
 
     expect(result.isSuccess()).toBe(true);
@@ -35,8 +37,10 @@ describe('GetUserByIdService', () => {
   });
 
   it('should not get a user when id does not exist', async () => {
+    const nonExistingUserId = 'non-existing-user-id';
+
     const result = await sut.execute({
-      userId: 'non-existing-user-id',
+      userId: nonExistingUserId,
     });
 
     expect(result.isError()).toBe(true);
@@ -49,8 +53,10 @@ describe('GetUserByIdService', () => {
   it('should return an unexpected error when something goes wrong', async () => {
     sut = new GetUserByIdService(new FailingUsersRepository());
 
+    const userIdToFind = 'user-1';
+
     const result = await sut.execute({
-      userId: 'user-1',
+      userId: userIdToFind,
     });
 
     expect(result.isError()).toBe(true);
