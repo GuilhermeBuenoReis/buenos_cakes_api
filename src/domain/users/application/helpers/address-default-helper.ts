@@ -1,6 +1,6 @@
+import type { UniqueEntityID } from '../../../../core/entities/unique-entity-id';
 import type { Address } from '../../enterprise/entities/address';
 import type { AddressesRepository } from '../repositories/addresses-repository';
-import type { UniqueEntityID } from '../../../../core/entities/unique-entity-id';
 
 export class AddressDefaultHelper {
   constructor(private addressesRepository: AddressesRepository) {}

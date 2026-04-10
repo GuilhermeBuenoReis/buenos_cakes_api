@@ -1,6 +1,6 @@
-import type { Address } from '../../src/domain/users/enterprise/entities/address';
-import type { AddressesRepository } from '../../src/domain/users/application/repositories/addresses-repository';
 import type { UniqueEntityID } from '../../src/core/entities/unique-entity-id';
+import type { AddressesRepository } from '../../src/domain/users/application/repositories/addresses-repository';
+import type { Address } from '../../src/domain/users/enterprise/entities/address';
 
 export class InMemoryAddressesRepository implements AddressesRepository {
   public items: Address[] = [];

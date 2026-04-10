@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { UniqueEntityID } from '../../src/core/entities/unique-entity-id';
 import type { UniqueEntityID as UniqueEntityIDType } from '../../src/core/entities/unique-entity-id';
+import { UniqueEntityID } from '../../src/core/entities/unique-entity-id';
 import { Product } from '../../src/domain/products/enterprise/entities/product';
 
 type ProductProps = Parameters<typeof Product.create>[0];

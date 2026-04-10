@@ -3,8 +3,8 @@ import { makeAddress } from '../../../../../test/factories/make-address';
 import { FailingAddressesRepository } from '../../../../../test/repositories/failures/failing-addresses-repository';
 import { InMemoryAddressesRepository } from '../../../../../test/repositories/in-memory-addresses-repository';
 import { UniqueEntityID } from '../../../../core/entities/unique-entity-id';
-import { AddressNotFoundError } from '../errors/address-not-found-error';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
+import { AddressNotFoundError } from '../errors/address-not-found-error';
 import { FetchAddressByIdService } from './fetch-address-by-id-service';
 
 let inMemoryAddressesRepository: InMemoryAddressesRepository;

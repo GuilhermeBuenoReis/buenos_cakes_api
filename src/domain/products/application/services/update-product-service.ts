@@ -1,5 +1,5 @@
-import { UniqueEntityID } from '../../../../core/entities/unique-entity-id';
 import { type Either, error, success } from '../../../../core/either';
+import { UniqueEntityID } from '../../../../core/entities/unique-entity-id';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
 import type { Product } from '../../enterprise/entities/product';
 import { CategoryNotFoundError } from '../errors/category-not-found-error';
@@ -52,7 +52,8 @@ export class UpdateProductService {
         return error(new ProductNotFoundError(productId));
       }
 
-      const isCategoryBeingChanged = categoryId && categoryId !== product.categoryId.toString();
+      const isCategoryBeingChanged =
+        categoryId && categoryId !== product.categoryId.toString();
 
       if (isCategoryBeingChanged) {
         const category = await this.categoriesRepository.findById(categoryId);
@@ -65,7 +66,8 @@ export class UpdateProductService {
       const isSlugBeingChanged = slug && slug !== product.slug;
 
       if (isSlugBeingChanged) {
-        const productWithSameSlug = await this.productsRepository.findBySlug(slug);
+        const productWithSameSlug =
+          await this.productsRepository.findBySlug(slug);
 
         const slugAlreadyInUseByAnotherProduct =
           productWithSameSlug && !productWithSameSlug.id.equals(product.id);

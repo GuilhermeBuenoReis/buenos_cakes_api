@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
-import { Address } from '../../src/domain/users/enterprise/entities/address';
-import { UniqueEntityID } from '../../src/core/entities/unique-entity-id';
 import type { UniqueEntityID as UniqueEntityIDType } from '../../src/core/entities/unique-entity-id';
+import { UniqueEntityID } from '../../src/core/entities/unique-entity-id';
+import { Address } from '../../src/domain/users/enterprise/entities/address';
 
 type AddressProps = Parameters<typeof Address.create>[0];
 
@@ -21,7 +21,8 @@ export function makeAddress(
       city: faker.location.city(),
       state: faker.location.state({ abbreviated: true }),
       zipCode: faker.location.zipCode('########'),
-      reference: faker.helpers.maybe(() => faker.location.streetAddress()) ?? null,
+      reference:
+        faker.helpers.maybe(() => faker.location.streetAddress()) ?? null,
       isDefault: faker.datatype.boolean(),
       createdAt: faker.date.recent(),
       ...override,
