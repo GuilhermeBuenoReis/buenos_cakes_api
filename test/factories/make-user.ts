@@ -1,6 +1,9 @@
 import { faker } from '@faker-js/faker';
-import { User, UserRole } from '../../src/domain/users/enterprise/entities/user';
 import type { UniqueEntityID } from '../../src/core/entities/unique-entity-id';
+import {
+  User,
+  UserRole,
+} from '../../src/domain/users/enterprise/entities/user';
 
 type UserProps = Parameters<typeof User.create>[0];
 

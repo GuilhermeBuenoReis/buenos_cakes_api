@@ -1,5 +1,5 @@
-import type { Address } from '../../enterprise/entities/address';
 import type { UniqueEntityID } from '../../../../core/entities/unique-entity-id';
+import type { Address } from '../../enterprise/entities/address';
 
 export interface AddressesRepository {
   findById(id: string): Promise<Address | null>;

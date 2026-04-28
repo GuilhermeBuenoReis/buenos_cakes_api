@@ -2,9 +2,9 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { makeCategory } from '../../../../../test/factories/make-category';
 import { FailingCategoriesRepository } from '../../../../../test/repositories/failures/failing-categories-repository';
 import { InMemoryCategoriesRepository } from '../../../../../test/repositories/in-memory-categories-repository';
-import { CreateCategoryService } from './create-category-service';
-import { CategorySlugAlreadyExistsError } from '../errors/category-slug-already-exists-error';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
+import { CategorySlugAlreadyExistsError } from '../errors/category-slug-already-exists-error';
+import { CreateCategoryService } from './create-category-service';
 
 let inMemoryCategoriesRepository: InMemoryCategoriesRepository;
 let failingCategoriesRepository: FailingCategoriesRepository;

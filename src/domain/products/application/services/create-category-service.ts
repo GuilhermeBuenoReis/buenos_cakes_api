@@ -1,8 +1,8 @@
-import { Category } from '../../enterprise/entities/category';
-import type { CategoriesRepository } from '../repositories/categories-repository';
 import { type Either, error, success } from '../../../../core/either';
-import { CategorySlugAlreadyExistsError } from '../errors/category-slug-already-exists-error';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
+import { Category } from '../../enterprise/entities/category';
+import { CategorySlugAlreadyExistsError } from '../errors/category-slug-already-exists-error';
+import type { CategoriesRepository } from '../repositories/categories-repository';
 
 export interface CreateCategoryServiceRequest {
   name: string;

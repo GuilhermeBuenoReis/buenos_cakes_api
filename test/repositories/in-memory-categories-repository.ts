@@ -1,5 +1,6 @@
 import type { Category } from '../../src/domain/products/enterprise/entities/category';
 import type { CategoriesRepository } from '../../src/domain/products/application/repositories/categories-repository';
+import type { PaginationParams } from '../../src/core/repositories/pagination-params';
 
 export class InMemoryCategoriesRepository implements CategoriesRepository {
   public items: Category[] = [];
@@ -24,12 +25,15 @@ export class InMemoryCategoriesRepository implements CategoriesRepository {
     return category;
   }
 
-  async findMany(): Promise<Category[]> {
-    return this.items;
+  async findMany({ page }: PaginationParams): Promise<Category[]> {
+
+    return this.items.slice((page - 1) * 20, page * 20);
   }
 
-  async findManyActive(): Promise<Category[]> {
-    return this.items.filter((item) => item.isActive);
+  async findManyActive({ page }: PaginationParams): Promise<Category[]> {
+    const activeCategories = this.items.filter((item) => item.isActive);
+
+    return activeCategories.slice((page - 1) * 20, page * 20);
   }
 
   async create(category: Category): Promise<Category> {

@@ -1,5 +1,6 @@
 import type { Category } from '../../../src/domain/products/enterprise/entities/category';
 import type { CategoriesRepository } from '../../../src/domain/products/application/repositories/categories-repository';
+import type { PaginationParams } from '../../../src/core/repositories/pagination-params';
 
 export class FailingCategoriesRepository implements CategoriesRepository {
   async findById(_id: string): Promise<Category | null> {
@@ -10,11 +11,11 @@ export class FailingCategoriesRepository implements CategoriesRepository {
     throw new Error('Unexpected repository error.');
   }
 
-  async findMany(): Promise<Category[]> {
+  async findMany(_params: PaginationParams): Promise<Category[]> {
     throw new Error('Unexpected repository error.');
   }
 
-  async findManyActive(): Promise<Category[]> {
+  async findManyActive(_params: PaginationParams): Promise<Category[]> {
     throw new Error('Unexpected repository error.');
   }
 
