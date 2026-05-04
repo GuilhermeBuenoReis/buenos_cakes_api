@@ -48,7 +48,9 @@ describe('CreateProductService', () => {
       expect(result.value.product.name).toBe('Chocolate Cake');
       expect(result.value.product.slug).toBe('chocolate-cake');
       expect(result.value.product.basePrice).toBe(89.9);
-      expect(result.value.product.categoryId.toString()).toBe(category.id.toString());
+      expect(result.value.product.categoryId.toString()).toBe(
+        category.id.toString()
+      );
       expect(result.value.product.isActive).toBe(true);
     }
   });
