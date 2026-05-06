@@ -4,11 +4,11 @@ import {
   validatorCompiler,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod';
-import { healthRoute } from './routes/health';
 import { cookiePlugin } from './plugins/cookie';
 import { corsPlugin } from './plugins/cors';
 import { scalarPlugin } from './plugins/scalar';
 import { swaggerPlugin } from './plugins/swagger';
+import { healthRoute } from './routes/health';
 
 export function buildApp() {
   const app = fastify().withTypeProvider<ZodTypeProvider>();
