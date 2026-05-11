@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "tsup src",
-    "dev": "tsx watch --env-file=.env src/http/server.ts",
-    "start": "dotenv -e ./.env -- node dist/http/server.ts",
+    "dev": "tsx watch --env-file=.env src/infra/http/app.ts",
+    "start": "dotenv -e ./.env -- node dist/infra/http/app.js",
     "seed": "tsx --env-file=.env src/infra/db/seed.ts",
     "test": "vitest run",
     "generate": "drizzle-kit generate",
-    "migrate": "drizzle-kit migrate"
+    "migrate": "drizzle-kit migrate",
+    "drizzle-studio": "drizzle-kit studio"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +22,7 @@
     "@fastify/cors": "^11.2.0",
     "@fastify/jwt": "^10.0.0",
     "@fastify/swagger": "^9.7.0",
+    "@paralleldrive/cuid2": "^3.3.0",
     "@scalar/fastify-api-reference": "^1.49.5",
     "bcrypt": "^6.0.0",
     "dotenv": "^17.3.1",

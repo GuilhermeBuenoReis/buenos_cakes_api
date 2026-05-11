@@ -21,6 +21,14 @@ export const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
+app.register(fastifySwagger, {
+  openapi: {
+    info: { title: 'Buenos_Cakes', version: '1.0.0' },
+    servers: [{ url: `http://localhost:${env.PORT}` }],
+  },
+  transform: jsonSchemaTransform,
+});
+
 app.register(fastifyCookie, {
   hook: 'onRequest',
 });
@@ -31,14 +39,6 @@ app.register(fastifyCors, {
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   credentials: true,
   maxAge: 86_400,
-});
-
-app.register(fastifySwagger, {
-  openapi: {
-    info: { title: 'Buenos_Cakes', version: '1.0.0' },
-    servers: [{ url: `http://localhost:${env.PORT}` }],
-  },
-  transform: jsonSchemaTransform,
 });
 
 app.register(scalar, {
@@ -53,12 +53,12 @@ app.register(createUserRoute);
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log(
-    `Server is running on url http://localhost:3333 | Visit http://localhost:3333/scalar to view the documentation.`
+    `Server is running on url http://localhost:${env.PORT} | Visit http://localhost:${env.PORT}/scalar to view the documentation.`
   );
 });
 
 if (env.NODE_ENV === 'development') {
-  const specFile = resolve(__dirname, '../../swagger.json');
+  const specFile = resolve(__dirname, '../../../swagger.json');
   app.ready().then(async () => {
     const spec = JSON.stringify(app.swagger(), null, 2);
     await writeFile(specFile, spec);
