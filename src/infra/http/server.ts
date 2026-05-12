@@ -13,6 +13,7 @@ import {
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod';
 import { env } from './env';
+import { createAddressRoute } from './routes/create-address-route';
 import { createUserRoute } from './routes/create-user-route';
 import { deleteUserRoute } from './routes/delete-user-route';
 import { fetchUserByIdRoute } from './routes/fetch-user-by-id-route';
@@ -56,6 +57,7 @@ app.register(createUserRoute);
 app.register(fetchUserByIdRoute);
 app.register(updateUserRoute);
 app.register(deleteUserRoute);
+app.register(createAddressRoute);
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log(
