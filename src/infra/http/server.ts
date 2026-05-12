@@ -14,7 +14,10 @@ import {
 } from 'fastify-type-provider-zod';
 import { env } from './env';
 import { createUserRoute } from './routes/create-user-route';
+import { deleteUserRoute } from './routes/delete-user-route';
+import { fetchUserByIdRoute } from './routes/fetch-user-by-id-route';
 import { healthRoute } from './routes/health';
+import { updateUserRoute } from './routes/update-user-route';
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -35,7 +38,7 @@ app.register(fastifyCookie, {
 
 app.register(fastifyCors, {
   origin: env.CLIENT_ORIGIN,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   credentials: true,
   maxAge: 86_400,
@@ -50,6 +53,9 @@ app.register(scalar, {
 
 app.register(healthRoute);
 app.register(createUserRoute);
+app.register(fetchUserByIdRoute);
+app.register(updateUserRoute);
+app.register(deleteUserRoute);
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log(

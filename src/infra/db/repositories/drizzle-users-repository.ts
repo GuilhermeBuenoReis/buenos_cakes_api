@@ -7,7 +7,15 @@ import { users } from '../schema';
 
 export class DrizzleUsersRepository implements UsersRepository {
   async findById(_id: string): Promise<User | null> {
-    throw new Error('Method not implemented.');
+    const user = await db.query.users.findFirst({
+      where: eq(users.id, _id),
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return UserPresenter.toDomain(user);
   }
 
   async findByEmail(email: string): Promise<User | null> {
@@ -45,11 +53,29 @@ export class DrizzleUsersRepository implements UsersRepository {
     return UserPresenter.toDomain(created);
   }
 
-  async save(_user: User): Promise<User> {
-    throw new Error('Method not implemented.');
+  async save(user: User): Promise<User> {
+    const [updatedUser] = await db
+      .update(users)
+      .set({
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        cpf: user.cpf,
+        phone: user.phone,
+        role: user.role,
+        updatedAt: new Date(),
+      })
+      .where(eq(users.id, user.id.toString()))
+      .returning();
+
+    if (!updatedUser) {
+      throw new Error('Failed to update user.');
+    }
+
+    return UserPresenter.toDomain(updatedUser);
   }
 
-  async delete(_user: User): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(user: User): Promise<void> {
+    await db.delete(users).where(eq(users.id, user.id.toString()));
   }
 }
