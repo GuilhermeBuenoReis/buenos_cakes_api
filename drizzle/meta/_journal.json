@@ -15,6 +15,20 @@
       "when": 1778625447023,
       "tag": "0001_gigantic_ultimatum",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1779110653253,
+      "tag": "0002_chief_solo",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1779110915514,
+      "tag": "0003_lethal_scarecrow",
+      "breakpoints": true
     }
   ]
 }
