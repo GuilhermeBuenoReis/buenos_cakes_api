@@ -6,11 +6,13 @@ import { AddressNotFoundError } from '@/domain/users/application/errors/address-
 import { SetDefaultAddressService } from '@/domain/users/application/services/set-default-address-service';
 import { DrizzleAddressesRepository } from '@/infra/db/repositories/drizzle-address-repositorie';
 import { AddressPresenter } from '@/infra/presenters/address-presenter';
+import { userGuard } from '../server';
 
 export const setDefaultAddressRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
     '/api/addresses/:addressId/default',
     {
+      onRequest: userGuard,
       schema: {
         summary: 'Set default address',
         operationId: 'setDefaultAddress',
