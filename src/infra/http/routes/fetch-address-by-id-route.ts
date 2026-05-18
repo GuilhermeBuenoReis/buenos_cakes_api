@@ -6,11 +6,13 @@ import { AddressNotFoundError } from '@/domain/users/application/errors/address-
 import { FetchAddressByIdService } from '@/domain/users/application/services/fetch-address-by-id-service';
 import { DrizzleAddressesRepository } from '@/infra/db/repositories/drizzle-address-repositorie';
 import { AddressPresenter } from '@/infra/presenters/address-presenter';
+import { userGuard } from '../server';
 
 export const fetchAddressByIdRoute: FastifyPluginAsyncZod = async (app) => {
   app.get(
     '/api/addresses/:addressId',
     {
+      onRequest: userGuard,
       schema: {
         summary: 'Fetch address by id',
         operationId: 'fetchAddressById',

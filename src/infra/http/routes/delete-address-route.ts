@@ -5,11 +5,13 @@ import { UnexpectedError } from '@/core/errors/unexpected-error';
 import { AddressNotFoundError } from '@/domain/users/application/errors/address-not-found-error';
 import { DeleteAddressService } from '@/domain/users/application/services/delete-address-service';
 import { DrizzleAddressesRepository } from '@/infra/db/repositories/drizzle-address-repositorie';
+import { userGuard } from '../server';
 
 export const deleteAddressRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
     '/api/addresses/delete/:addressId',
     {
+      onRequest: userGuard,
       schema: {
         summary: 'Delete an address',
         operationId: 'deleteAddress',

@@ -7,11 +7,13 @@ import { ListUserAddressesService } from '@/domain/users/application/services/li
 import { DrizzleAddressesRepository } from '@/infra/db/repositories/drizzle-address-repositorie';
 import { DrizzleUsersRepository } from '@/infra/db/repositories/drizzle-users-repository';
 import { AddressPresenter } from '@/infra/presenters/address-presenter';
+import { userGuard } from '../server';
 
 export const listUserAddressesRoute: FastifyPluginAsyncZod = async (app) => {
   app.get(
     '/api/users/:userId/addresses',
     {
+      onRequest: userGuard,
       schema: {
         summary: 'List user addresses',
         operationId: 'listUserAddresses',

@@ -7,11 +7,13 @@ import { CreateAddressService } from '@/domain/users/application/services/create
 import { DrizzleAddressesRepository } from '@/infra/db/repositories/drizzle-address-repositorie';
 import { DrizzleUsersRepository } from '@/infra/db/repositories/drizzle-users-repository';
 import { AddressPresenter } from '@/infra/presenters/address-presenter';
+import { userGuard } from '../server';
 
 export const createAddressRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
     '/api/addresses/create',
     {
+      onRequest: userGuard,
       schema: {
         summary: 'Create an address',
         operationId: 'createAddress',

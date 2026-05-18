@@ -12,7 +12,10 @@ import {
   validatorCompiler,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod';
+import { makeUserGuard } from '@/core/guards/user-guard';
+import { DrizzleUsersRepository } from '../db/repositories/drizzle-users-repository';
 import { env } from './env';
+import { authenticateUserRoute } from './routes/authenticate-user-route';
 import { createAddressRoute } from './routes/create-address-route';
 import { createUserRoute } from './routes/create-user-route';
 import { deleteAddressRoute } from './routes/delete-address-route';
@@ -57,8 +60,14 @@ app.register(scalar, {
   },
 });
 
+export const userGuard = makeUserGuard({
+  usersRepository: new DrizzleUsersRepository(),
+  jwtSecret: env.JWT_SECRET,
+});
+
 app.register(healthRoute);
 app.register(createUserRoute);
+app.register(authenticateUserRoute);
 app.register(fetchUserByIdRoute);
 app.register(updateUserRoute);
 app.register(deleteUserRoute);
