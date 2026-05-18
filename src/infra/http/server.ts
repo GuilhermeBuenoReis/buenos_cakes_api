@@ -13,8 +13,17 @@ import {
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod';
 import { env } from './env';
+import { createAddressRoute } from './routes/create-address-route';
 import { createUserRoute } from './routes/create-user-route';
+import { deleteAddressRoute } from './routes/delete-address-route';
+import { deleteUserRoute } from './routes/delete-user-route';
+import { fetchAddressByIdRoute } from './routes/fetch-address-by-id-route';
+import { fetchUserByIdRoute } from './routes/fetch-user-by-id-route';
 import { healthRoute } from './routes/health';
+import { listUserAddressesRoute } from './routes/list-user-addresses-route';
+import { setDefaultAddressRoute } from './routes/set-default-address-route';
+import { updateAddressRoute } from './routes/update-address-route';
+import { updateUserRoute } from './routes/update-user-route';
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -35,7 +44,7 @@ app.register(fastifyCookie, {
 
 app.register(fastifyCors, {
   origin: env.CLIENT_ORIGIN,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   credentials: true,
   maxAge: 86_400,
@@ -50,6 +59,15 @@ app.register(scalar, {
 
 app.register(healthRoute);
 app.register(createUserRoute);
+app.register(fetchUserByIdRoute);
+app.register(updateUserRoute);
+app.register(deleteUserRoute);
+app.register(createAddressRoute);
+app.register(fetchAddressByIdRoute);
+app.register(listUserAddressesRoute);
+app.register(updateAddressRoute);
+app.register(deleteAddressRoute);
+app.register(setDefaultAddressRoute);
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log(
