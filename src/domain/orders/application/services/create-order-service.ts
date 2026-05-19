@@ -5,10 +5,7 @@ import { AddressNotFoundError } from '../../../users/application/errors/address-
 import { UserNotFoundError } from '../../../users/application/errors/user-not-found-error';
 import type { AddressesRepository } from '../../../users/application/repositories/addresses-repository';
 import type { UsersRepository } from '../../../users/application/repositories/users-repository';
-import {
-  Order,
-  OrderFulfillmentMethod,
-} from '../../enterprise/entities/order';
+import { Order, OrderFulfillmentMethod } from '../../enterprise/entities/order';
 import { DeliveryAddressRequiredError } from '../errors/delivery-address-required-error';
 import { PickupScheduleRequiredError } from '../errors/pickup-schedule-required-error';
 import type { OrdersRepository } from '../repositories/orders-repository';

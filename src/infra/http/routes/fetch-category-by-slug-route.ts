@@ -6,13 +6,13 @@ import { CategoryWithSlugNotFoundError } from '@/domain/products/application/err
 import { FetchCategoryBySlugService } from '@/domain/products/application/services/fetch-category-by-slug-service';
 import { DrizzleCategoriesRepository } from '@/infra/db/repositories/drizzle-categories-repository';
 import { CategoryPresenter } from '@/infra/presenters/category-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const fetchCategoryBySlugRoute: FastifyPluginAsyncZod = async (app) => {
   app.get(
     '/api/categories/slug/:slug',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Fetch category by slug',
         operationId: 'fetchCategoryBySlug',

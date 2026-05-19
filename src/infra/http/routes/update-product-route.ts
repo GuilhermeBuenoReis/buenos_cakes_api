@@ -9,13 +9,13 @@ import { UpdateProductService } from '@/domain/products/application/services/upd
 import { DrizzleCategoriesRepository } from '@/infra/db/repositories/drizzle-categories-repository';
 import { DrizzleProductsRepository } from '@/infra/db/repositories/drizzle-products-repository';
 import { ProductPresenter } from '@/infra/presenters/product-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const updateProductRoute: FastifyPluginAsyncZod = async (app) => {
   app.patch(
     '/api/products/:productId',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Update product',
         operationId: 'updateProduct',

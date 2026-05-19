@@ -21,7 +21,8 @@ export class DeleteProductSizeService {
     productSizeId,
   }: DeleteProductSizeServiceRequest): Promise<DeleteProductSizeServiceResponse> {
     try {
-      const productSize = await this.productSizesRepository.findById(productSizeId);
+      const productSize =
+        await this.productSizesRepository.findById(productSizeId);
 
       if (!productSize) {
         return error(new ProductSizeNotFoundError(productSizeId));

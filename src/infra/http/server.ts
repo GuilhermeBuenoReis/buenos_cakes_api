@@ -12,8 +12,6 @@ import {
   validatorCompiler,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod';
-import { makeUserGuard } from '@/core/guards/user-guard';
-import { DrizzleUsersRepository } from '../db/repositories/drizzle-users-repository';
 import { env } from './env';
 import { authenticateUserRoute } from './routes/authenticate-user-route';
 import { createAddressRoute } from './routes/create-address-route';
@@ -31,9 +29,9 @@ import { deleteUserRoute } from './routes/delete-user-route';
 import { fetchAddressByIdRoute } from './routes/fetch-address-by-id-route';
 import { fetchCategoryByIdRoute } from './routes/fetch-category-by-id-route';
 import { fetchCategoryBySlugRoute } from './routes/fetch-category-by-slug-route';
-import { fetchProductFillingByIdRoute } from './routes/fetch-product-filling-by-id-route';
 import { fetchProductByIdRoute } from './routes/fetch-product-by-id-route';
 import { fetchProductBySlugRoute } from './routes/fetch-product-by-slug-route';
+import { fetchProductFillingByIdRoute } from './routes/fetch-product-filling-by-id-route';
 import { fetchProductSizeByIdRoute } from './routes/fetch-product-size-by-id-route';
 import { fetchUserByIdRoute } from './routes/fetch-user-by-id-route';
 import { healthRoute } from './routes/health';
@@ -88,11 +86,6 @@ app.register(scalar, {
   configuration: {
     theme: 'kepler',
   },
-});
-
-export const userGuard = makeUserGuard({
-  usersRepository: new DrizzleUsersRepository(),
-  jwtSecret: env.JWT_SECRET,
 });
 
 app.register(healthRoute);

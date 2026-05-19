@@ -29,6 +29,13 @@
       "when": 1779110915514,
       "tag": "0003_lethal_scarecrow",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1779228581896,
+      "tag": "0004_steady_speed_demon",
+      "breakpoints": true
     }
   ]
 }

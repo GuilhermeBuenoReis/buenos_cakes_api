@@ -1,8 +1,8 @@
-import type { User } from '../../enterprise/entities/user';
-import type { UsersRepository } from '../repositories/users-repository';
 import { type Either, error, success } from '../../../../core/either';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
+import type { User } from '../../enterprise/entities/user';
 import { UserNotFoundError } from '../errors/user-not-found-error';
+import type { UsersRepository } from '../repositories/users-repository';
 
 export interface FetchUserByIdServiceRequest {
   userId: string;

@@ -6,13 +6,13 @@ import { CategoryNotFoundError } from '@/domain/products/application/errors/cate
 import { FetchCategoryByIdService } from '@/domain/products/application/services/fetch-category-by-id-service';
 import { DrizzleCategoriesRepository } from '@/infra/db/repositories/drizzle-categories-repository';
 import { CategoryPresenter } from '@/infra/presenters/category-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const fetchCategoryByIdRoute: FastifyPluginAsyncZod = async (app) => {
   app.get(
     '/api/categories/:categoryId',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Fetch category by id',
         operationId: 'fetchCategoryById',

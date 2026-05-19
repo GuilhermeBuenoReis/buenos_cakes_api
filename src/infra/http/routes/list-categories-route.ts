@@ -5,13 +5,13 @@ import { UnexpectedError } from '@/core/errors/unexpected-error';
 import { ListCategoriesService } from '@/domain/products/application/services/list-categories-service';
 import { DrizzleCategoriesRepository } from '@/infra/db/repositories/drizzle-categories-repository';
 import { CategoryPresenter } from '@/infra/presenters/category-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const listCategoriesRoute: FastifyPluginAsyncZod = async (app) => {
   app.get(
     '/api/categories',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'List categories',
         operationId: 'listCategories',

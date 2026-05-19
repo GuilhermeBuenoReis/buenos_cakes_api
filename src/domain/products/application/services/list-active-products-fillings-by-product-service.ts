@@ -22,7 +22,9 @@ export class ListActiveProductsFillingsByProductService {
   }: ListActiveProductsFillingsByProductServiceRequest): Promise<ListActiveProductsFillingsByProductServiceResponse> {
     try {
       const productFillings =
-        await this.productFillingsRepository.findManyActiveByProductId(productId);
+        await this.productFillingsRepository.findManyActiveByProductId(
+          productId
+        );
 
       return success({
         productFillings,

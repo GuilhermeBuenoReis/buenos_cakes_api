@@ -8,13 +8,13 @@ import { CreateProductService } from '@/domain/products/application/services/cre
 import { DrizzleCategoriesRepository } from '@/infra/db/repositories/drizzle-categories-repository';
 import { DrizzleProductsRepository } from '@/infra/db/repositories/drizzle-products-repository';
 import { ProductPresenter } from '@/infra/presenters/product-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const createProductRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
     '/api/products/create',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Create a product',
         operationId: 'createProduct',

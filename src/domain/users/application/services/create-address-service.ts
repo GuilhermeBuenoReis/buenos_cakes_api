@@ -1,10 +1,10 @@
-import { Address } from '../../enterprise/entities/address';
-import type { AddressesRepository } from '../repositories/addresses-repository';
-import type { UsersRepository } from '../repositories/users-repository';
 import { type Either, error, success } from '../../../../core/either';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
+import { Address } from '../../enterprise/entities/address';
 import { UserNotFoundError } from '../errors/user-not-found-error';
 import { AddressDefaultHelper } from '../helpers/address-default-helper';
+import type { AddressesRepository } from '../repositories/addresses-repository';
+import type { UsersRepository } from '../repositories/users-repository';
 
 export interface CreateAddressServiceRequest {
   userId: string;

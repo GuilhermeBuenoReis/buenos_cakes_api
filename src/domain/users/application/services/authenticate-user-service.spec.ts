@@ -4,9 +4,9 @@ import { FakeTokenGenerator } from '../../../../../test/cryptography/fake-token-
 import { makeUser } from '../../../../../test/factories/make-user';
 import { FailingUsersRepository } from '../../../../../test/repositories/failures/failing-users-repository';
 import { InMemoryUsersRepository } from '../../../../../test/repositories/in-memory-users-repository';
-import { AuthenticateUserService } from './authenticate-user-service';
-import { InvalidCredentialsError } from '../errors/invalid-credentials-error';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
+import { InvalidCredentialsError } from '../errors/invalid-credentials-error';
+import { AuthenticateUserService } from './authenticate-user-service';
 
 let inMemoryUsersRepository: InMemoryUsersRepository;
 let fakeHasher: FakeHasher;

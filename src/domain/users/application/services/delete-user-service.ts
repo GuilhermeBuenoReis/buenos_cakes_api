@@ -1,7 +1,7 @@
-import type { UsersRepository } from '../repositories/users-repository';
 import { type Either, error, success } from '../../../../core/either';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
 import { UserNotFoundError } from '../errors/user-not-found-error';
+import type { UsersRepository } from '../repositories/users-repository';
 
 export interface DeleteUserServiceRequest {
   userId: string;

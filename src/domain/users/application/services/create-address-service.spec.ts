@@ -5,9 +5,9 @@ import { FailingAddressesRepository } from '../../../../../test/repositories/fai
 import { FailingUsersRepository } from '../../../../../test/repositories/failures/failing-users-repository';
 import { InMemoryAddressesRepository } from '../../../../../test/repositories/in-memory-addresses-repository';
 import { InMemoryUsersRepository } from '../../../../../test/repositories/in-memory-users-repository';
-import { CreateAddressService } from './create-address-service';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
 import { UserNotFoundError } from '../errors/user-not-found-error';
+import { CreateAddressService } from './create-address-service';
 
 let inMemoryUsersRepository: InMemoryUsersRepository;
 let inMemoryAddressesRepository: InMemoryAddressesRepository;

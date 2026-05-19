@@ -6,13 +6,13 @@ import { CategorySlugAlreadyExistsError } from '@/domain/products/application/er
 import { CreateCategoryService } from '@/domain/products/application/services/create-category-service';
 import { DrizzleCategoriesRepository } from '@/infra/db/repositories/drizzle-categories-repository';
 import { CategoryPresenter } from '@/infra/presenters/category-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const createCategoryRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
     '/api/categories/create',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Create a category',
         operationId: 'createCategory',

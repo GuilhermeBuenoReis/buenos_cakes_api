@@ -5,8 +5,8 @@ import { ProductSize } from '../../enterprise/entities/product-size';
 import { ProductNotFoundError } from '../errors/product-not-found-error';
 import { ProductSizeCodeAlreadyExistsError } from '../errors/product-size-code-already-exists-error';
 import { ProductSizeDefaultHelper } from '../helpers/product-size-default-helper';
-import type { ProductsRepository } from '../repositories/products-repository';
 import type { ProductSizesRepository } from '../repositories/product-sizes-repository';
+import type { ProductsRepository } from '../repositories/products-repository';
 
 export interface CreateProductSizeServiceRequest {
   productId: string;
@@ -56,7 +56,10 @@ export class CreateProductSizeService {
       }
 
       const existingProductSizeWithSameCode =
-        await this.productSizesRepository.findByCodeAndProductId(code, productId);
+        await this.productSizesRepository.findByCodeAndProductId(
+          code,
+          productId
+        );
 
       if (existingProductSizeWithSameCode) {
         return error(new ProductSizeCodeAlreadyExistsError(code));

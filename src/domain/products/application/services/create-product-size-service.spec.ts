@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { makeProduct } from '../../../../../test/factories/make-product';
 import { makeProductSize } from '../../../../../test/factories/make-product-size';
-import { FailingProductsRepository } from '../../../../../test/repositories/failures/failing-products-repository';
 import { FailingProductSizesRepository } from '../../../../../test/repositories/failures/failing-product-sizes-repository';
-import { InMemoryProductsRepository } from '../../../../../test/repositories/in-memory-products-repository';
+import { FailingProductsRepository } from '../../../../../test/repositories/failures/failing-products-repository';
 import { InMemoryProductSizesRepository } from '../../../../../test/repositories/in-memory-product-sizes-repository';
+import { InMemoryProductsRepository } from '../../../../../test/repositories/in-memory-products-repository';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
 import { ProductNotFoundError } from '../errors/product-not-found-error';
 import { ProductSizeCodeAlreadyExistsError } from '../errors/product-size-code-already-exists-error';
@@ -121,9 +121,10 @@ describe('CreateProductSizeService', () => {
 
     expect(result.isSuccess()).toBe(true);
 
-    const updatedCurrentDefaultSize = await inMemoryProductSizesRepository.findById(
-      currentDefaultSize.id.toString()
-    );
+    const updatedCurrentDefaultSize =
+      await inMemoryProductSizesRepository.findById(
+        currentDefaultSize.id.toString()
+      );
 
     expect(updatedCurrentDefaultSize?.isDefault).toBe(false);
 

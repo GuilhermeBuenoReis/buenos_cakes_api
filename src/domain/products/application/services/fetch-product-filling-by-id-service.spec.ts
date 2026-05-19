@@ -14,9 +14,7 @@ describe('FetchProductFillingByIdService', () => {
   beforeEach(() => {
     inMemoryProductFillingsRepository = new InMemoryProductFillingsRepository();
     failingProductFillingsRepository = new FailingProductFillingsRepository();
-    sut = new FetchProductFillingByIdService(
-      inMemoryProductFillingsRepository
-    );
+    sut = new FetchProductFillingByIdService(inMemoryProductFillingsRepository);
   });
 
   it('should get a product filling by id', async () => {

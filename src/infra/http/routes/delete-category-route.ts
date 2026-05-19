@@ -5,13 +5,13 @@ import { UnexpectedError } from '@/core/errors/unexpected-error';
 import { CategoryNotFoundError } from '@/domain/products/application/errors/category-not-found-error';
 import { DeleteCategoryService } from '@/domain/products/application/services/delete-category-service';
 import { DrizzleCategoriesRepository } from '@/infra/db/repositories/drizzle-categories-repository';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const deleteCategoryRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
     '/api/categories/delete/:categoryId',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Delete a category',
         operationId: 'deleteCategory',

@@ -7,7 +7,7 @@ import { ProductFillingNotFoundError } from '@/domain/products/application/error
 import { UpdateProductsFillingService } from '@/domain/products/application/services/update-products-filling-service';
 import { DrizzleProductFillingsRepository } from '@/infra/db/repositories/drizzle-product-fillings-repository';
 import { ProductFillingPresenter } from '@/infra/presenters/product-filling-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 const productFillingResponseSchema = z.object({
   id: z.string(),
@@ -25,7 +25,7 @@ export const updateProductFillingRoute: FastifyPluginAsyncZod = async (app) => {
   app.patch(
     '/api/product-fillings/:productFillingId',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Update product filling',
         operationId: 'updateProductFilling',

@@ -5,13 +5,13 @@ import { UnexpectedError } from '@/core/errors/unexpected-error';
 import { ListProductsService } from '@/domain/products/application/services/list-products-service';
 import { DrizzleProductsRepository } from '@/infra/db/repositories/drizzle-products-repository';
 import { ProductPresenter } from '@/infra/presenters/product-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const listProductsRoute: FastifyPluginAsyncZod = async (app) => {
   app.get(
     '/api/products',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'List products',
         operationId: 'listProducts',

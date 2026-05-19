@@ -5,7 +5,7 @@ import { UnexpectedError } from '@/core/errors/unexpected-error';
 import { ListProductsByPopularityService } from '@/domain/products/application/services/list-products-by-popularity-service';
 import { DrizzleProductsRepository } from '@/infra/db/repositories/drizzle-products-repository';
 import { ProductPresenter } from '@/infra/presenters/product-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const listProductsByPopularityRoute: FastifyPluginAsyncZod = async (
   app
@@ -13,7 +13,7 @@ export const listProductsByPopularityRoute: FastifyPluginAsyncZod = async (
   app.get(
     '/api/products/popularity',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'List products by popularity',
         operationId: 'listProductsByPopularity',

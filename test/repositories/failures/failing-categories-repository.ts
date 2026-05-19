@@ -1,6 +1,6 @@
-import type { Category } from '../../../src/domain/products/enterprise/entities/category';
-import type { CategoriesRepository } from '../../../src/domain/products/application/repositories/categories-repository';
 import type { PaginationParams } from '../../../src/core/repositories/pagination-params';
+import type { CategoriesRepository } from '../../../src/domain/products/application/repositories/categories-repository';
+import type { Category } from '../../../src/domain/products/enterprise/entities/category';
 
 export class FailingCategoriesRepository implements CategoriesRepository {
   async findById(_id: string): Promise<Category | null> {

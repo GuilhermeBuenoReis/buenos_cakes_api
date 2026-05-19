@@ -1,4 +1,6 @@
-declare module 'fastify/jwt' {
+import 'fastify';
+
+declare module 'fastify' {
   interface FastifyRequest {
     user?: {
       id: string;

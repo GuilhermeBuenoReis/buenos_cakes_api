@@ -18,7 +18,9 @@ export interface UpdateProductSizeServiceRequest {
 }
 
 export type UpdateProductSizeServiceResponse = Either<
-  ProductSizeNotFoundError | ProductSizeCodeAlreadyExistsError | UnexpectedError,
+  | ProductSizeNotFoundError
+  | ProductSizeCodeAlreadyExistsError
+  | UnexpectedError,
   {
     productSize: ProductSize;
   }
@@ -44,7 +46,8 @@ export class UpdateProductSizeService {
     isActive,
   }: UpdateProductSizeServiceRequest): Promise<UpdateProductSizeServiceResponse> {
     try {
-      const productSize = await this.productSizesRepository.findById(productSizeId);
+      const productSize =
+        await this.productSizesRepository.findById(productSizeId);
 
       if (!productSize) {
         return error(new ProductSizeNotFoundError(productSizeId));
@@ -84,7 +87,8 @@ export class UpdateProductSizeService {
         isActive,
       };
 
-      if (fieldsToUpdate.code !== undefined) productSize.code = fieldsToUpdate.code;
+      if (fieldsToUpdate.code !== undefined)
+        productSize.code = fieldsToUpdate.code;
       if (fieldsToUpdate.label !== undefined)
         productSize.label = fieldsToUpdate.label;
       if (fieldsToUpdate.servingsLabel !== undefined)

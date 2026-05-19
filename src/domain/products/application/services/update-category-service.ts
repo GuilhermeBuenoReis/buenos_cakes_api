@@ -42,7 +42,8 @@ export class UpdateCategoryService {
       const isSlugBeingChanged = slug && slug !== category.slug;
 
       if (isSlugBeingChanged) {
-        const categoryWithSameSlug = await this.categoriesRepository.findBySlug(slug);
+        const categoryWithSameSlug =
+          await this.categoriesRepository.findBySlug(slug);
 
         const slugAlreadyInUseByAnotherCategory =
           categoryWithSameSlug && !categoryWithSameSlug.id.equals(category.id);
@@ -60,8 +61,10 @@ export class UpdateCategoryService {
         isActive,
       };
 
-      if (fieldsToUpdate.name !== undefined) category.name = fieldsToUpdate.name;
-      if (fieldsToUpdate.slug !== undefined) category.slug = fieldsToUpdate.slug;
+      if (fieldsToUpdate.name !== undefined)
+        category.name = fieldsToUpdate.name;
+      if (fieldsToUpdate.slug !== undefined)
+        category.slug = fieldsToUpdate.slug;
       if (fieldsToUpdate.description !== undefined)
         category.description = fieldsToUpdate.description;
       if (fieldsToUpdate.imageUrl !== undefined)

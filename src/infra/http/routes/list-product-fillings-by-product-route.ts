@@ -5,7 +5,7 @@ import { UnexpectedError } from '@/core/errors/unexpected-error';
 import { ListProductsFillingsByProductService } from '@/domain/products/application/services/list-products-fillings-by-product-service';
 import { DrizzleProductFillingsRepository } from '@/infra/db/repositories/drizzle-product-fillings-repository';
 import { ProductFillingPresenter } from '@/infra/presenters/product-filling-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 const productFillingResponseSchema = z.object({
   id: z.string(),
@@ -25,7 +25,7 @@ export const listProductFillingsByProductRoute: FastifyPluginAsyncZod = async (
   app.get(
     '/api/products/:productId/fillings',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'List product fillings by product',
         operationId: 'listProductFillingsByProduct',

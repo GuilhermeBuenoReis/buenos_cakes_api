@@ -133,9 +133,10 @@ describe('UpdateProductSizeService', () => {
 
     expect(result.isSuccess()).toBe(true);
 
-    const updatedCurrentDefaultSize = await inMemoryProductSizesRepository.findById(
-      currentDefaultSize.id.toString()
-    );
+    const updatedCurrentDefaultSize =
+      await inMemoryProductSizesRepository.findById(
+        currentDefaultSize.id.toString()
+      );
 
     expect(updatedCurrentDefaultSize?.isDefault).toBe(false);
 

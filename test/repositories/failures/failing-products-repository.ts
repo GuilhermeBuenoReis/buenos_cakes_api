@@ -33,7 +33,9 @@ export class FailingProductsRepository implements ProductsRepository {
     throw new Error('Unexpected repository error.');
   }
 
-  async findManyOrderByPopularity(_params: PaginationParams): Promise<Product[]> {
+  async findManyOrderByPopularity(
+    _params: PaginationParams
+  ): Promise<Product[]> {
     throw new Error('Unexpected repository error.');
   }
 

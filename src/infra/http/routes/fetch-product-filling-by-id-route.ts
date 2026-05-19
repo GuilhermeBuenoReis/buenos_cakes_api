@@ -6,7 +6,7 @@ import { ProductFillingNotFoundError } from '@/domain/products/application/error
 import { FetchProductFillingByIdService } from '@/domain/products/application/services/fetch-product-filling-by-id-service';
 import { DrizzleProductFillingsRepository } from '@/infra/db/repositories/drizzle-product-fillings-repository';
 import { ProductFillingPresenter } from '@/infra/presenters/product-filling-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 const productFillingResponseSchema = z.object({
   id: z.string(),
@@ -26,7 +26,7 @@ export const fetchProductFillingByIdRoute: FastifyPluginAsyncZod = async (
   app.get(
     '/api/product-fillings/:productFillingId',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Fetch product filling by id',
         operationId: 'fetchProductFillingById',
@@ -46,8 +46,9 @@ export const fetchProductFillingByIdRoute: FastifyPluginAsyncZod = async (
     },
     async (request, reply) => {
       const productFillingsRepository = new DrizzleProductFillingsRepository();
-      const fetchProductFillingByIdService =
-        new FetchProductFillingByIdService(productFillingsRepository);
+      const fetchProductFillingByIdService = new FetchProductFillingByIdService(
+        productFillingsRepository
+      );
 
       try {
         const { productFillingId } = request.params;

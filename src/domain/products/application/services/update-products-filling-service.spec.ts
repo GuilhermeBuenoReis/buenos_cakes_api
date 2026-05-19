@@ -96,7 +96,9 @@ describe('UpdateProductsFillingService', () => {
     expect(result.isError()).toBe(true);
 
     if (result.isError()) {
-      expect(result.value).toBeInstanceOf(ProductFillingLabelAlreadyExistsError);
+      expect(result.value).toBeInstanceOf(
+        ProductFillingLabelAlreadyExistsError
+      );
     }
   });
 

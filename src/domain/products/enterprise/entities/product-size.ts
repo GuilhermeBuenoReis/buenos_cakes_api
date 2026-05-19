@@ -104,7 +104,12 @@ export class ProductSize extends Entity<ProductSizeProps> {
   static create(
     props: Optional<
       ProductSizeProps,
-      'createdAt' | 'updatedAt' | 'servingsLabel' | 'isDefault' | 'sortOrder' | 'isActive'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'servingsLabel'
+      | 'isDefault'
+      | 'sortOrder'
+      | 'isActive'
     >,
     id?: UniqueEntityID
   ) {

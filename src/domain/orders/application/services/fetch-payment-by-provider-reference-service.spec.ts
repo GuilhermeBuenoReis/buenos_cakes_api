@@ -14,7 +14,9 @@ describe('FetchPaymentByProviderReferenceService', () => {
   beforeEach(() => {
     inMemoryPaymentsRepository = new InMemoryPaymentsRepository();
     failingPaymentsRepository = new FailingPaymentsRepository();
-    sut = new FetchPaymentByProviderReferenceService(inMemoryPaymentsRepository);
+    sut = new FetchPaymentByProviderReferenceService(
+      inMemoryPaymentsRepository
+    );
   });
 
   it('should fetch a payment by provider reference id', async () => {

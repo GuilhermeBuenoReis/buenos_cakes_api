@@ -5,7 +5,7 @@ import { UnexpectedError } from '@/core/errors/unexpected-error';
 import { ListActiveProductSizesByProductService } from '@/domain/products/application/services/list-active-product-sizes-by-product-service';
 import { DrizzleProductSizesRepository } from '@/infra/db/repositories/drizzle-product-sizes-repository';
 import { ProductSizePresenter } from '@/infra/presenters/product-size-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 const productSizeResponseSchema = z.object({
   id: z.string(),
@@ -26,7 +26,7 @@ export const listActiveProductSizesByProductRoute: FastifyPluginAsyncZod =
     app.get(
       '/api/products/:productId/sizes/active',
       {
-        onRequest: userGuard,
+        onRequest: userAuthMiddleware,
         schema: {
           summary: 'List active product sizes by product',
           operationId: 'listActiveProductSizesByProduct',

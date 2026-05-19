@@ -5,7 +5,7 @@ import { UnexpectedError } from '@/core/errors/unexpected-error';
 import { ListActiveProductsByCategoryService } from '@/domain/products/application/services/list-active-products-by-category-service';
 import { DrizzleProductsRepository } from '@/infra/db/repositories/drizzle-products-repository';
 import { ProductPresenter } from '@/infra/presenters/product-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const listActiveProductsByCategoryRoute: FastifyPluginAsyncZod = async (
   app
@@ -13,7 +13,7 @@ export const listActiveProductsByCategoryRoute: FastifyPluginAsyncZod = async (
   app.get(
     '/api/categories/:categoryId/products/active',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'List active products by category',
         operationId: 'listActiveProductsByCategory',

@@ -1,7 +1,6 @@
 import { type Either, error, success } from '../../../../core/either';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
-import type { Order } from '../../enterprise/entities/order';
-import { type OrderStatus } from '../../enterprise/entities/order';
+import type { Order, OrderStatus } from '../../enterprise/entities/order';
 import { OrderNotFoundError } from '../errors/order-not-found-error';
 import type { OrdersRepository } from '../repositories/orders-repository';
 
