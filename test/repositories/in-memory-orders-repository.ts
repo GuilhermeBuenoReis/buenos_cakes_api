@@ -19,7 +19,9 @@ export class InMemoryOrdersRepository implements OrdersRepository {
     userId: string,
     { page }: PaginationParams
   ): Promise<Order[]> {
-    const orders = this.items.filter((item) => item.userId.toString() === userId);
+    const orders = this.items.filter(
+      (item) => item.userId.toString() === userId
+    );
 
     return orders.slice((page - 1) * 20, page * 20);
   }

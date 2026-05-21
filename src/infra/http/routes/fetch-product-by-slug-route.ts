@@ -6,13 +6,13 @@ import { ProductWithSlugNotFoundError } from '@/domain/products/application/erro
 import { FetchProductBySlugService } from '@/domain/products/application/services/fetch-product-by-slug-service';
 import { DrizzleProductsRepository } from '@/infra/db/repositories/drizzle-products-repository';
 import { ProductPresenter } from '@/infra/presenters/product-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const fetchProductBySlugRoute: FastifyPluginAsyncZod = async (app) => {
   app.get(
     '/api/products/slug/:slug',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Fetch product by slug',
         operationId: 'fetchProductBySlug',

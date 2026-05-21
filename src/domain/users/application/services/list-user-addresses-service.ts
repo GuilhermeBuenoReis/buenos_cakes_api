@@ -1,9 +1,9 @@
-import type { Address } from '../../enterprise/entities/address';
-import type { AddressesRepository } from '../repositories/addresses-repository';
-import type { UsersRepository } from '../repositories/users-repository';
 import { type Either, error, success } from '../../../../core/either';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
+import type { Address } from '../../enterprise/entities/address';
 import { UserNotFoundError } from '../errors/user-not-found-error';
+import type { AddressesRepository } from '../repositories/addresses-repository';
+import type { UsersRepository } from '../repositories/users-repository';
 
 export interface ListUserAddressesServiceRequest {
   userId: string;

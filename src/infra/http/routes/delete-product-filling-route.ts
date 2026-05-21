@@ -5,13 +5,13 @@ import { UnexpectedError } from '@/core/errors/unexpected-error';
 import { ProductFillingNotFoundError } from '@/domain/products/application/errors/product-filling-not-found-error';
 import { DeleteProductsFillingService } from '@/domain/products/application/services/delete-products-filling-service';
 import { DrizzleProductFillingsRepository } from '@/infra/db/repositories/drizzle-product-fillings-repository';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const deleteProductFillingRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
     '/api/product-fillings/delete/:productFillingId',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Delete product filling',
         operationId: 'deleteProductFilling',

@@ -6,7 +6,7 @@ import { ProductSizeNotFoundError } from '@/domain/products/application/errors/p
 import { FetchProductSizeByIdService } from '@/domain/products/application/services/fetch-product-size-by-id-service';
 import { DrizzleProductSizesRepository } from '@/infra/db/repositories/drizzle-product-sizes-repository';
 import { ProductSizePresenter } from '@/infra/presenters/product-size-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 const productSizeResponseSchema = z.object({
   id: z.string(),
@@ -26,7 +26,7 @@ export const fetchProductSizeByIdRoute: FastifyPluginAsyncZod = async (app) => {
   app.get(
     '/api/product-sizes/:productSizeId',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Fetch product size by id',
         operationId: 'fetchProductSizeById',

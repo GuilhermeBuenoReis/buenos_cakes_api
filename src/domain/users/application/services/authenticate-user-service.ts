@@ -1,10 +1,10 @@
-import type { User } from '../../enterprise/entities/user';
-import type { UsersRepository } from '../repositories/users-repository';
+import { type Either, error, success } from '../../../../core/either';
+import { UnexpectedError } from '../../../../core/errors/unexpected-error';
 import type { HashComparer } from '../../../cryptography/application/cryptography/hash-comparer';
 import type { TokenGenerator } from '../../../cryptography/application/cryptography/token-generator';
-import { type Either, error, success } from '../../../../core/either';
+import type { User } from '../../enterprise/entities/user';
 import { InvalidCredentialsError } from '../errors/invalid-credentials-error';
-import { UnexpectedError } from '../../../../core/errors/unexpected-error';
+import type { UsersRepository } from '../repositories/users-repository';
 
 export interface AuthenticateUserServiceRequest {
   email: string;

@@ -35,7 +35,9 @@ describe('ListUserOrdersService', () => {
     await inMemoryUsersRepository.create(anotherUser);
     await inMemoryOrdersRepository.create(makeOrder({ userId: user.id }));
     await inMemoryOrdersRepository.create(makeOrder({ userId: user.id }));
-    await inMemoryOrdersRepository.create(makeOrder({ userId: anotherUser.id }));
+    await inMemoryOrdersRepository.create(
+      makeOrder({ userId: anotherUser.id })
+    );
 
     const result = await sut.execute({
       userId: user.id.toString(),

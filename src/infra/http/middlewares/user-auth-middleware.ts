@@ -2,8 +2,10 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 import { jwtVerify } from 'jose';
 
 import type { UsersRepository } from '@/domain/users/application/repositories/users-repository';
+import { DrizzleUsersRepository } from '@/infra/db/repositories/drizzle-users-repository';
+import { env } from '../env';
 
-interface MakeUserGuardParams {
+interface MakeUserAuthMiddlewareParams {
   usersRepository: UsersRepository;
   jwtSecret: string;
 }
@@ -18,10 +20,10 @@ function extractTokenFromRequest(request: FastifyRequest) {
   return request.cookies.accessToken;
 }
 
-export function makeUserGuard({
+export function makeUserAuthMiddleware({
   usersRepository,
   jwtSecret,
-}: MakeUserGuardParams) {
+}: MakeUserAuthMiddlewareParams) {
   return async (request: FastifyRequest, reply: FastifyReply) => {
     const token = extractTokenFromRequest(request);
 
@@ -52,3 +54,8 @@ export function makeUserGuard({
     }
   };
 }
+
+export const userAuthMiddleware = makeUserAuthMiddleware({
+  usersRepository: new DrizzleUsersRepository(),
+  jwtSecret: env.JWT_SECRET,
+});

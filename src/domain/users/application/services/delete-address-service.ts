@@ -1,7 +1,7 @@
-import type { AddressesRepository } from '../repositories/addresses-repository';
 import { type Either, error, success } from '../../../../core/either';
-import { AddressNotFoundError } from '../errors/address-not-found-error';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
+import { AddressNotFoundError } from '../errors/address-not-found-error';
+import type { AddressesRepository } from '../repositories/addresses-repository';
 
 export interface DeleteAddressServiceRequest {
   addressId: string;

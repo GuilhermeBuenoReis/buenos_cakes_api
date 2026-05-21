@@ -8,7 +8,7 @@ import { CreateProductsFillingService } from '@/domain/products/application/serv
 import { DrizzleProductFillingsRepository } from '@/infra/db/repositories/drizzle-product-fillings-repository';
 import { DrizzleProductsRepository } from '@/infra/db/repositories/drizzle-products-repository';
 import { ProductFillingPresenter } from '@/infra/presenters/product-filling-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 const productFillingResponseSchema = z.object({
   id: z.string(),
@@ -26,7 +26,7 @@ export const createProductFillingRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
     '/api/product-fillings/create',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Create a product filling',
         operationId: 'createProductFilling',

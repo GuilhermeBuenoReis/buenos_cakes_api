@@ -5,13 +5,13 @@ import { UserNotFoundError } from '@/domain/users/application/errors/user-not-fo
 import { FetchUserByIdService } from '@/domain/users/application/services/fetch-user-by-id-service';
 import { DrizzleUsersRepository } from '@/infra/db/repositories/drizzle-users-repository';
 import { UserPresenter } from '@/infra/presenters/user-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const fetchUserByIdRoute: FastifyPluginAsyncZod = async (app) => {
   app.get(
     '/api/users/:userId',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Fetch user by id',
         operationId: 'fetchUserById',

@@ -1,8 +1,8 @@
-import type { Address } from '../../enterprise/entities/address';
-import type { AddressesRepository } from '../repositories/addresses-repository';
 import { type Either, error, success } from '../../../../core/either';
-import { AddressNotFoundError } from '../errors/address-not-found-error';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
+import type { Address } from '../../enterprise/entities/address';
+import { AddressNotFoundError } from '../errors/address-not-found-error';
+import type { AddressesRepository } from '../repositories/addresses-repository';
 
 export interface FetchAddressByIdServiceRequest {
   addressId: string;

@@ -2,9 +2,9 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { makeUser } from '../../../../../test/factories/make-user';
 import { FailingUsersRepository } from '../../../../../test/repositories/failures/failing-users-repository';
 import { InMemoryUsersRepository } from '../../../../../test/repositories/in-memory-users-repository';
-import { DeleteUserService } from './delete-user-service';
 import { UnexpectedError } from '../../../../core/errors/unexpected-error';
 import { UserNotFoundError } from '../errors/user-not-found-error';
+import { DeleteUserService } from './delete-user-service';
 
 let inMemoryUsersRepository: InMemoryUsersRepository;
 let sut: DeleteUserService;

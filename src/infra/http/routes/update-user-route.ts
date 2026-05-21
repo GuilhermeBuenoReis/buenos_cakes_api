@@ -7,13 +7,13 @@ import { UserNotFoundError } from '@/domain/users/application/errors/user-not-fo
 import { UpdateUserService } from '@/domain/users/application/services/update-user-service';
 import { DrizzleUsersRepository } from '@/infra/db/repositories/drizzle-users-repository';
 import { UserPresenter } from '@/infra/presenters/user-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const updateUserRoute: FastifyPluginAsyncZod = async (app) => {
   app.patch(
     '/api/users/:userId',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Update user',
         operationId: 'updateUser',

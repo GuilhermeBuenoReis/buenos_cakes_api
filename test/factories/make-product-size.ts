@@ -15,8 +15,9 @@ export function makeProductSize(
       code: faker.string.alphanumeric({ length: 6 }).toUpperCase(),
       label: faker.helpers.arrayElement(['Pequeno', 'Medio', 'Grande']),
       servingsLabel:
-        faker.helpers.maybe(() => `${faker.number.int({ min: 6, max: 30 })} fatias`) ??
-        null,
+        faker.helpers.maybe(
+          () => `${faker.number.int({ min: 6, max: 30 })} fatias`
+        ) ?? null,
       priceDelta: faker.number.float({ min: 0, max: 50, fractionDigits: 2 }),
       isDefault: faker.datatype.boolean(),
       sortOrder: faker.number.int({ min: 0, max: 10 }),

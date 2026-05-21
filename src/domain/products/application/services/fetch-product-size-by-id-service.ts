@@ -22,7 +22,8 @@ export class FetchProductSizeByIdService {
     productSizeId,
   }: FetchProductSizeByIdServiceRequest): Promise<FetchProductSizeByIdServiceResponse> {
     try {
-      const productSize = await this.productSizesRepository.findById(productSizeId);
+      const productSize =
+        await this.productSizesRepository.findById(productSizeId);
 
       if (!productSize) {
         return error(new ProductSizeNotFoundError(productSizeId));

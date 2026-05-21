@@ -5,13 +5,13 @@ import { UnexpectedError } from '@/core/errors/unexpected-error';
 import { ProductSizeNotFoundError } from '@/domain/products/application/errors/product-size-not-found-error';
 import { DeleteProductSizeService } from '@/domain/products/application/services/delete-product-size-service';
 import { DrizzleProductSizesRepository } from '@/infra/db/repositories/drizzle-product-sizes-repository';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const deleteProductSizeRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
     '/api/product-sizes/delete/:productSizeId',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Delete product size',
         operationId: 'deleteProductSize',

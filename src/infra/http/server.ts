@@ -12,18 +12,20 @@ import {
   validatorCompiler,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod';
-import { makeUserGuard } from '@/core/guards/user-guard';
-import { DrizzleUsersRepository } from '../db/repositories/drizzle-users-repository';
 import { env } from './env';
 import { authenticateUserRoute } from './routes/authenticate-user-route';
 import { createAddressRoute } from './routes/create-address-route';
 import { createCategoryRoute } from './routes/create-category-route';
+import { createOrderRoute } from './routes/create-order-route';
+import { createOrderItemRoute } from './routes/create-order-item-route';
 import { createProductFillingRoute } from './routes/create-product-filling-route';
 import { createProductRoute } from './routes/create-product-route';
 import { createProductSizeRoute } from './routes/create-product-size-route';
 import { createUserRoute } from './routes/create-user-route';
 import { deleteAddressRoute } from './routes/delete-address-route';
 import { deleteCategoryRoute } from './routes/delete-category-route';
+import { deleteOrderRoute } from './routes/delete-order-route';
+import { deleteOrderItemRoute } from './routes/delete-order-item-route';
 import { deleteProductFillingRoute } from './routes/delete-product-filling-route';
 import { deleteProductRoute } from './routes/delete-product-route';
 import { deleteProductSizeRoute } from './routes/delete-product-size-route';
@@ -31,9 +33,11 @@ import { deleteUserRoute } from './routes/delete-user-route';
 import { fetchAddressByIdRoute } from './routes/fetch-address-by-id-route';
 import { fetchCategoryByIdRoute } from './routes/fetch-category-by-id-route';
 import { fetchCategoryBySlugRoute } from './routes/fetch-category-by-slug-route';
-import { fetchProductFillingByIdRoute } from './routes/fetch-product-filling-by-id-route';
+import { fetchOrderByIdRoute } from './routes/fetch-order-by-id-route';
+import { fetchOrderItemByIdRoute } from './routes/fetch-order-item-by-id-route';
 import { fetchProductByIdRoute } from './routes/fetch-product-by-id-route';
 import { fetchProductBySlugRoute } from './routes/fetch-product-by-slug-route';
+import { fetchProductFillingByIdRoute } from './routes/fetch-product-filling-by-id-route';
 import { fetchProductSizeByIdRoute } from './routes/fetch-product-size-by-id-route';
 import { fetchUserByIdRoute } from './routes/fetch-user-by-id-route';
 import { healthRoute } from './routes/health';
@@ -43,6 +47,8 @@ import { listActiveProductSizesByProductRoute } from './routes/list-active-produ
 import { listActiveProductsByCategoryRoute } from './routes/list-active-products-by-category-route';
 import { listActiveProductsRoute } from './routes/list-active-products-route';
 import { listCategoriesRoute } from './routes/list-categories-route';
+import { listOrderItemsByOrderRoute } from './routes/list-order-items-by-order-route';
+import { listOrdersRoute } from './routes/list-orders-route';
 import { listProductFillingsByProductRoute } from './routes/list-product-fillings-by-product-route';
 import { listProductSizesByProductRoute } from './routes/list-product-sizes-by-product-route';
 import { listProductsByCategoryRoute } from './routes/list-products-by-category-route';
@@ -50,9 +56,12 @@ import { listProductsByPopularityRoute } from './routes/list-products-by-popular
 import { listProductsByRatingRoute } from './routes/list-products-by-rating-route';
 import { listProductsRoute } from './routes/list-products-route';
 import { listUserAddressesRoute } from './routes/list-user-addresses-route';
+import { listUserOrdersRoute } from './routes/list-user-orders-route';
 import { setDefaultAddressRoute } from './routes/set-default-address-route';
 import { updateAddressRoute } from './routes/update-address-route';
 import { updateCategoryRoute } from './routes/update-category-route';
+import { updateOrderStatusRoute } from './routes/update-order-status-route';
+import { updateOrderItemRoute } from './routes/update-order-item-route';
 import { updateProductFillingRoute } from './routes/update-product-filling-route';
 import { updateProductRoute } from './routes/update-product-route';
 import { updateProductSizeRoute } from './routes/update-product-size-route';
@@ -90,11 +99,6 @@ app.register(scalar, {
   },
 });
 
-export const userGuard = makeUserGuard({
-  usersRepository: new DrizzleUsersRepository(),
-  jwtSecret: env.JWT_SECRET,
-});
-
 app.register(healthRoute);
 app.register(createUserRoute);
 app.register(authenticateUserRoute);
@@ -107,6 +111,17 @@ app.register(listUserAddressesRoute);
 app.register(updateAddressRoute);
 app.register(deleteAddressRoute);
 app.register(setDefaultAddressRoute);
+app.register(createOrderRoute);
+app.register(listOrdersRoute);
+app.register(listUserOrdersRoute);
+app.register(listOrderItemsByOrderRoute);
+app.register(updateOrderStatusRoute);
+app.register(deleteOrderRoute);
+app.register(fetchOrderByIdRoute);
+app.register(createOrderItemRoute);
+app.register(fetchOrderItemByIdRoute);
+app.register(updateOrderItemRoute);
+app.register(deleteOrderItemRoute);
 app.register(createCategoryRoute);
 app.register(listCategoriesRoute);
 app.register(listActiveCategoriesRoute);

@@ -57,12 +57,16 @@ describe('UpdatePaymentService', () => {
         'provider-reference-1'
       );
       expect(result.value.payment.providerSessionId).toBe('provider-session-1');
-      expect(result.value.payment.providerCustomerId).toBe('provider-customer-1');
+      expect(result.value.payment.providerCustomerId).toBe(
+        'provider-customer-1'
+      );
       expect(result.value.payment.providerPaymentMethodId).toBe(
         'provider-method-1'
       );
       expect(result.value.payment.providerClientSecret).toBe('client-secret-1');
-      expect(result.value.payment.providerStatus).toBe('requires_payment_method');
+      expect(result.value.payment.providerStatus).toBe(
+        'requires_payment_method'
+      );
       expect(result.value.payment.pixQrCode).toBeNull();
       expect(result.value.payment.pixQrCodeUrl).toBeNull();
       expect(result.value.payment.expiresAt).toEqual(expiresAt);

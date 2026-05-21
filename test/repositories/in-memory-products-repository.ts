@@ -39,7 +39,9 @@ export class InMemoryProductsRepository implements ProductsRepository {
     id: string,
     { page }: PaginationParams
   ): Promise<Product[]> {
-    const products = this.items.filter((item) => item.categoryId.toString() === id);
+    const products = this.items.filter(
+      (item) => item.categoryId.toString() === id
+    );
 
     return products.slice((page - 1) * 20, page * 20);
   }
@@ -80,7 +82,9 @@ export class InMemoryProductsRepository implements ProductsRepository {
   }
 
   async save(product: Product): Promise<Product> {
-    const productIndex = this.items.findIndex((item) => item.id.equals(product.id));
+    const productIndex = this.items.findIndex((item) =>
+      item.id.equals(product.id)
+    );
 
     this.items[productIndex] = product;
 
@@ -88,7 +92,9 @@ export class InMemoryProductsRepository implements ProductsRepository {
   }
 
   async delete(product: Product): Promise<void> {
-    const productIndex = this.items.findIndex((item) => item.id.equals(product.id));
+    const productIndex = this.items.findIndex((item) =>
+      item.id.equals(product.id)
+    );
 
     this.items.splice(productIndex, 1);
   }

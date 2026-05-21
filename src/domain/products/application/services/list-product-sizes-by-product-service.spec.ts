@@ -49,7 +49,9 @@ describe('ListProductSizesByProductService', () => {
     if (result.isSuccess()) {
       expect(result.value.productSizes).toHaveLength(2);
       expect(
-        result.value.productSizes.map((productSize) => productSize.id.toString())
+        result.value.productSizes.map((productSize) =>
+          productSize.id.toString()
+        )
       ).toEqual([
         firstProductSize.id.toString(),
         secondProductSize.id.toString(),

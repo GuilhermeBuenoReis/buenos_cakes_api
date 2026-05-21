@@ -104,11 +104,7 @@ export class OrderItem extends Entity<OrderItemProps> {
   static create(
     props: Optional<
       OrderItemProps,
-      | 'createdAt'
-      | 'updatedAt'
-      | 'productSizeId'
-      | 'productFillingId'
-      | 'note'
+      'createdAt' | 'updatedAt' | 'productSizeId' | 'productFillingId' | 'note'
     >,
     id?: UniqueEntityID
   ) {

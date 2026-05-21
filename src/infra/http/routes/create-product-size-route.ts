@@ -8,7 +8,7 @@ import { CreateProductSizeService } from '@/domain/products/application/services
 import { DrizzleProductSizesRepository } from '@/infra/db/repositories/drizzle-product-sizes-repository';
 import { DrizzleProductsRepository } from '@/infra/db/repositories/drizzle-products-repository';
 import { ProductSizePresenter } from '@/infra/presenters/product-size-presenter';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 const productSizeResponseSchema = z.object({
   id: z.string(),
@@ -28,7 +28,7 @@ export const createProductSizeRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
     '/api/product-sizes/create',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Create a product size',
         operationId: 'createProductSize',

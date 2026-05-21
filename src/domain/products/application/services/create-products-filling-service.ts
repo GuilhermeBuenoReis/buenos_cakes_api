@@ -18,7 +18,9 @@ export interface CreateProductsFillingServiceRequest {
 }
 
 export type CreateProductsFillingServiceResponse = Either<
-  ProductNotFoundError | ProductFillingLabelAlreadyExistsError | UnexpectedError,
+  | ProductNotFoundError
+  | ProductFillingLabelAlreadyExistsError
+  | UnexpectedError,
   {
     productFilling: ProductFillings;
   }

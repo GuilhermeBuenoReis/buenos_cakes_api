@@ -4,13 +4,13 @@ import { UnexpectedError } from '@/core/errors/unexpected-error';
 import { UserNotFoundError } from '@/domain/users/application/errors/user-not-found-error';
 import { DeleteUserService } from '@/domain/users/application/services/delete-user-service';
 import { DrizzleUsersRepository } from '@/infra/db/repositories/drizzle-users-repository';
-import { userGuard } from '../server';
+import { userAuthMiddleware } from '../middlewares/user-auth-middleware';
 
 export const deleteUserRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
     '/api/users/delete/:userId',
     {
-      onRequest: userGuard,
+      onRequest: userAuthMiddleware,
       schema: {
         summary: 'Delete a user',
         operationId: 'deleteUser',
