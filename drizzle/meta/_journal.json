@@ -36,6 +36,13 @@
       "when": 1779228581896,
       "tag": "0004_steady_speed_demon",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1779715770658,
+      "tag": "0005_slow_hellfire_club",
+      "breakpoints": true
     }
   ]
 }

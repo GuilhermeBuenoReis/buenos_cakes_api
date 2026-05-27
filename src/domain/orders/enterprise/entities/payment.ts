@@ -25,7 +25,7 @@ export enum PaymentStatus {
 
 interface PaymentProps {
   orderId: UniqueEntityID;
-  method: PaymentMethod;
+  method: PaymentMethod | null;
   provider: PaymentProvider;
   status: PaymentStatus;
   amount: number;
@@ -144,8 +144,8 @@ export class Payment extends Entity<PaymentProps> {
     this.props.updatedAt = new Date();
   }
 
-  set method(method: PaymentMethod) {
-    this.props.method = method;
+  set method(method: PaymentMethod | null) {
+    this.props.method = method ?? null;
     this.touch();
   }
 
@@ -261,6 +261,7 @@ export class Payment extends Entity<PaymentProps> {
   static create(
     props: Optional<
       PaymentProps,
+      | 'method'
       | 'provider'
       | 'status'
       | 'currency'
@@ -286,6 +287,7 @@ export class Payment extends Entity<PaymentProps> {
     const payment = new Payment(
       {
         ...props,
+        method: props.method ?? null,
         provider:
           props.provider ??
           (props.method === PaymentMethod.CASH

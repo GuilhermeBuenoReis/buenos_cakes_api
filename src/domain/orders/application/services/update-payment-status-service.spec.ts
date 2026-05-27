@@ -47,7 +47,7 @@ describe('UpdatePaymentStatusService', () => {
     const result = await sut.execute({
       paymentId: payment.id.toString(),
       status: PaymentStatus.PAID,
-      providerStatus: 'succeeded',
+      providerStatus: 'approved',
       occurredAt: paidAt,
     });
 
@@ -55,7 +55,7 @@ describe('UpdatePaymentStatusService', () => {
 
     if (result.isSuccess()) {
       expect(result.value.payment.status).toBe(PaymentStatus.PAID);
-      expect(result.value.payment.providerStatus).toBe('succeeded');
+      expect(result.value.payment.providerStatus).toBe('approved');
       expect(result.value.payment.paidAt).toEqual(paidAt);
       expect(result.value.payment.failureReason).toBeNull();
     }
