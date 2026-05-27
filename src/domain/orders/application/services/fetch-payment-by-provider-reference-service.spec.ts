@@ -21,15 +21,15 @@ describe('FetchPaymentByProviderReferenceService', () => {
 
   it('should fetch a payment by provider reference id', async () => {
     const payment = makePayment({
-      providerName: 'stripe',
-      providerReferenceId: 'payment-intent-1',
+      providerName: 'abacate_pay',
+      providerReferenceId: 'abacate-pay-checkout-1',
     });
 
     await inMemoryPaymentsRepository.create(payment);
 
     const result = await sut.execute({
-      providerName: 'stripe',
-      providerReferenceId: 'payment-intent-1',
+      providerName: 'abacate_pay',
+      providerReferenceId: 'abacate-pay-checkout-1',
     });
 
     expect(result.isSuccess()).toBe(true);
@@ -41,7 +41,7 @@ describe('FetchPaymentByProviderReferenceService', () => {
 
   it('should not fetch a payment when provider reference id does not exist', async () => {
     const result = await sut.execute({
-      providerName: 'stripe',
+      providerName: 'abacate_pay',
       providerReferenceId: 'non-existing-provider-reference-id',
     });
 
@@ -56,8 +56,8 @@ describe('FetchPaymentByProviderReferenceService', () => {
     sut = new FetchPaymentByProviderReferenceService(failingPaymentsRepository);
 
     const result = await sut.execute({
-      providerName: 'stripe',
-      providerReferenceId: 'payment-intent-1',
+      providerName: 'abacate_pay',
+      providerReferenceId: 'abacate-pay-checkout-1',
     });
 
     expect(result.isError()).toBe(true);

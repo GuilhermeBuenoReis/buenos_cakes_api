@@ -19,15 +19,15 @@ describe('FetchPaymentByProviderSessionService', () => {
 
   it('should fetch a payment by provider session id', async () => {
     const payment = makePayment({
-      providerName: 'stripe',
-      providerSessionId: 'checkout-session-1',
+      providerName: 'abacate_pay',
+      providerSessionId: 'abacate-pay-checkout-1',
     });
 
     await inMemoryPaymentsRepository.create(payment);
 
     const result = await sut.execute({
-      providerName: 'stripe',
-      providerSessionId: 'checkout-session-1',
+      providerName: 'abacate_pay',
+      providerSessionId: 'abacate-pay-checkout-1',
     });
 
     expect(result.isSuccess()).toBe(true);
@@ -39,7 +39,7 @@ describe('FetchPaymentByProviderSessionService', () => {
 
   it('should not fetch a payment when provider session id does not exist', async () => {
     const result = await sut.execute({
-      providerName: 'stripe',
+      providerName: 'abacate_pay',
       providerSessionId: 'non-existing-provider-session-id',
     });
 
@@ -54,8 +54,8 @@ describe('FetchPaymentByProviderSessionService', () => {
     sut = new FetchPaymentByProviderSessionService(failingPaymentsRepository);
 
     const result = await sut.execute({
-      providerName: 'stripe',
-      providerSessionId: 'checkout-session-1',
+      providerName: 'abacate_pay',
+      providerSessionId: 'abacate-pay-checkout-1',
     });
 
     expect(result.isError()).toBe(true);

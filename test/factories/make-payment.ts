@@ -13,20 +13,21 @@ export function makePayment(
   id?: UniqueEntityIDType
 ) {
   const method =
-    override.method ??
-    faker.helpers.arrayElement([
-      PaymentMethod.PIX,
-      PaymentMethod.CREDIT_CARD,
-      PaymentMethod.DEBIT_CARD,
-      PaymentMethod.CASH,
-    ]);
+    'method' in override
+      ? (override.method ?? null)
+      : faker.helpers.arrayElement([
+          PaymentMethod.PIX,
+          PaymentMethod.CREDIT_CARD,
+          PaymentMethod.DEBIT_CARD,
+          PaymentMethod.CASH,
+        ]);
 
   const payment = Payment.create(
     {
       orderId: override.orderId ?? new UniqueEntityID(),
       method,
       amount: faker.number.float({ min: 30, max: 500, fractionDigits: 2 }),
-      providerName: method === PaymentMethod.CASH ? null : 'stripe',
+      providerName: method === PaymentMethod.CASH ? null : 'abacate_pay',
       providerReferenceId:
         method === PaymentMethod.CASH ? null : faker.string.uuid(),
       providerSessionId:

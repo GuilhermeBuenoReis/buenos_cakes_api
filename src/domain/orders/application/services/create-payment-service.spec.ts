@@ -39,9 +39,9 @@ describe('CreatePaymentService', () => {
       orderId: order.id.toString(),
       method: PaymentMethod.PIX,
       amount: 120,
-      providerName: 'stripe',
-      providerReferenceId: 'payment-intent-1',
-      providerSessionId: 'checkout-session-1',
+      providerName: 'abacate_pay',
+      providerReferenceId: 'abacate-pay-checkout-1',
+      providerSessionId: 'abacate-pay-checkout-1',
       providerClientSecret: 'client-secret-1',
       pixQrCode: 'pix-code',
       pixQrCodeUrl: 'https://example.com/pix.png',
@@ -56,9 +56,9 @@ describe('CreatePaymentService', () => {
       expect(result.value.payment.provider).toBe(PaymentProvider.EXTERNAL);
       expect(result.value.payment.currency).toBe('brl');
       expect(result.value.payment.amount).toBe(120);
-      expect(result.value.payment.providerName).toBe('stripe');
-      expect(result.value.payment.providerReferenceId).toBe('payment-intent-1');
-      expect(result.value.payment.providerSessionId).toBe('checkout-session-1');
+      expect(result.value.payment.providerName).toBe('abacate_pay');
+      expect(result.value.payment.providerReferenceId).toBe('abacate-pay-checkout-1');
+      expect(result.value.payment.providerSessionId).toBe('abacate-pay-checkout-1');
       expect(result.value.payment.providerClientSecret).toBe('client-secret-1');
       expect(result.value.payment.pixQrCode).toBe('pix-code');
       expect(result.value.payment.pixQrCodeUrl).toBe(

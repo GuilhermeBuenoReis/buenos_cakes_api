@@ -39,7 +39,7 @@ describe('UpdatePaymentService', () => {
       providerCustomerId: 'provider-customer-1',
       providerPaymentMethodId: 'provider-method-1',
       providerClientSecret: 'client-secret-1',
-      providerStatus: 'requires_payment_method',
+      providerStatus: 'rejected',
       pixQrCode: null,
       pixQrCodeUrl: null,
       expiresAt,
@@ -65,7 +65,7 @@ describe('UpdatePaymentService', () => {
       );
       expect(result.value.payment.providerClientSecret).toBe('client-secret-1');
       expect(result.value.payment.providerStatus).toBe(
-        'requires_payment_method'
+        'rejected'
       );
       expect(result.value.payment.pixQrCode).toBeNull();
       expect(result.value.payment.pixQrCodeUrl).toBeNull();

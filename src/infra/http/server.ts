@@ -21,6 +21,7 @@ import { createOrderItemRoute } from './routes/create-order-item-route';
 import { createProductFillingRoute } from './routes/create-product-filling-route';
 import { createProductRoute } from './routes/create-product-route';
 import { createProductSizeRoute } from './routes/create-product-size-route';
+import { createCheckoutPaymentRoute } from './routes/create-checkout-payment-route';
 import { createUserRoute } from './routes/create-user-route';
 import { deleteAddressRoute } from './routes/delete-address-route';
 import { deleteCategoryRoute } from './routes/delete-category-route';
@@ -58,6 +59,7 @@ import { listProductsRoute } from './routes/list-products-route';
 import { listUserAddressesRoute } from './routes/list-user-addresses-route';
 import { listUserOrdersRoute } from './routes/list-user-orders-route';
 import { setDefaultAddressRoute } from './routes/set-default-address-route';
+import { paymentWebhookRoute } from './routes/payment-webhook-route';
 import { updateAddressRoute } from './routes/update-address-route';
 import { updateCategoryRoute } from './routes/update-category-route';
 import { updateOrderStatusRoute } from './routes/update-order-status-route';
@@ -71,6 +73,22 @@ export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
+app.removeContentTypeParser('application/json');
+app.addContentTypeParser(
+  'application/json',
+  { parseAs: 'string' },
+  (request, body, done) => {
+    const rawBody = typeof body === 'string' ? body : body.toString('utf8');
+
+    (request as typeof request & { rawBody?: string }).rawBody = rawBody;
+
+    try {
+      done(null, rawBody ? JSON.parse(rawBody) : null);
+    } catch (error) {
+      done(error as Error, undefined);
+    }
+  }
+);
 
 app.register(fastifySwagger, {
   openapi: {
@@ -122,6 +140,8 @@ app.register(createOrderItemRoute);
 app.register(fetchOrderItemByIdRoute);
 app.register(updateOrderItemRoute);
 app.register(deleteOrderItemRoute);
+app.register(createCheckoutPaymentRoute);
+app.register(paymentWebhookRoute);
 app.register(createCategoryRoute);
 app.register(listCategoriesRoute);
 app.register(listActiveCategoriesRoute);

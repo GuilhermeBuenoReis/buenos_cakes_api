@@ -35,7 +35,7 @@ export const payments = pgTable('payments', {
       onDelete: 'cascade',
     }),
 
-  method: paymentMethodEnum('method').notNull(),
+  method: paymentMethodEnum('method'),
   provider: paymentProviderEnum('provider').notNull().default('external'),
   status: paymentStatusEnum('status').notNull().default('pending'),
 

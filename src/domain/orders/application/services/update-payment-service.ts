@@ -10,7 +10,7 @@ import type { PaymentsRepository } from '../repositories/payments-repository';
 
 export interface UpdatePaymentServiceRequest {
   paymentId: string;
-  method?: PaymentMethod;
+  method?: PaymentMethod | null;
   provider?: PaymentProvider;
   amount?: number;
   currency?: string;
