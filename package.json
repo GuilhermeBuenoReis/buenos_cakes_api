@@ -7,7 +7,8 @@
     "build": "tsup src",
     "dev": "tsx watch --env-file=.env src/infra/http/server.ts",
     "start": "dotenv -e ./.env -- node dist/infra/http/server.ts",
-    "seed": "tsx --env-file=.env src/infra/db/seed.ts",
+    "seed": "pnpm seed:products",
+    "seed:products": "tsx --env-file=.env src/infra/db/seed.ts",
     "test": "vitest run",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate"
