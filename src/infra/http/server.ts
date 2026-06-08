@@ -34,6 +34,7 @@ import { deleteUserRoute } from './routes/delete-user-route';
 import { fetchAddressByIdRoute } from './routes/fetch-address-by-id-route';
 import { fetchCategoryByIdRoute } from './routes/fetch-category-by-id-route';
 import { fetchCategoryBySlugRoute } from './routes/fetch-category-by-slug-route';
+import { fetchCurrentUserRoute } from './routes/fetch-current-user-route';
 import { fetchOrderByIdRoute } from './routes/fetch-order-by-id-route';
 import { fetchOrderItemByIdRoute } from './routes/fetch-order-item-by-id-route';
 import { fetchProductByIdRoute } from './routes/fetch-product-by-id-route';
@@ -120,6 +121,7 @@ app.register(scalar, {
 app.register(healthRoute);
 app.register(createUserRoute);
 app.register(authenticateUserRoute);
+app.register(fetchCurrentUserRoute);
 app.register(fetchUserByIdRoute);
 app.register(updateUserRoute);
 app.register(deleteUserRoute);
