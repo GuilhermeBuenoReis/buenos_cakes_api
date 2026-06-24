@@ -7,7 +7,7 @@ import { ProductPresenter } from '@/infra/presenters/product-presenter';
 import { db } from '..';
 import { products } from '../schema/products';
 
-const PRODUCTS_PER_PAGE = 20;
+const PRODUCTS_PER_PAGE = 5;
 
 export class DrizzleProductsRepository implements ProductsRepository {
   async findById(id: string): Promise<Product | null> {
