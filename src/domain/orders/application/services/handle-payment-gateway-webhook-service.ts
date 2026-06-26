@@ -5,6 +5,7 @@ import { PaymentStatus } from '../../enterprise/entities/payment';
 import { PaymentNotFoundError } from '../errors/payment-not-found-error';
 import type { PaymentGatewayWebhookEvent } from '../gateways/payment-gateway';
 import type { PaymentsRepository } from '../repositories/payments-repository';
+import type { ApplyOrderAdjustmentService } from './apply-order-adjustment-service';
 
 export interface HandlePaymentGatewayWebhookServiceRequest {
   event: PaymentGatewayWebhookEvent;
@@ -18,7 +19,10 @@ export type HandlePaymentGatewayWebhookServiceResponse = Either<
 >;
 
 export class HandlePaymentGatewayWebhookService {
-  constructor(private paymentsRepository: PaymentsRepository) {}
+  constructor(
+    private paymentsRepository: PaymentsRepository,
+    private applyOrderAdjustmentService?: ApplyOrderAdjustmentService
+  ) {}
 
   async execute({
     event,
@@ -61,6 +65,15 @@ export class HandlePaymentGatewayWebhookService {
       this.applyPaymentStatus(payment, event);
 
       await this.paymentsRepository.save(payment);
+
+      if (
+        event.status === PaymentStatus.PAID &&
+        this.applyOrderAdjustmentService
+      ) {
+        await this.applyOrderAdjustmentService.execute({
+          paymentId: payment.id.toString(),
+        });
+      }
 
       return success({
         payment,

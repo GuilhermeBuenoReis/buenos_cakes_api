@@ -43,6 +43,13 @@
       "when": 1779715770658,
       "tag": "0005_slow_hellfire_club",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1782431774067,
+      "tag": "0006_faithful_sway",
+      "breakpoints": true
     }
   ]
 }
