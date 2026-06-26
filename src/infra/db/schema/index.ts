@@ -1,5 +1,10 @@
 import { addresses } from './address';
 import { categories } from './categories';
+import {
+  orderAdjustmentStatusEnum,
+  orderAdjustmentTypeEnum,
+  orderAdjustments,
+} from './order-adjustments';
 import { orderItems } from './order-items';
 import {
   orderFulfillmentMethodEnum,
@@ -19,6 +24,7 @@ import { userRoleEnum, users } from './users';
 
 export * from './address';
 export * from './categories';
+export * from './order-adjustments';
 export * from './order-items';
 export * from './orders';
 export * from './payments';
@@ -34,6 +40,8 @@ export const enums = {
   paymentMethodEnum,
   paymentProviderEnum,
   paymentStatusEnum,
+  orderAdjustmentTypeEnum,
+  orderAdjustmentStatusEnum,
 };
 
 export const tables = {
@@ -46,6 +54,7 @@ export const tables = {
   orders,
   orderItems,
   payments,
+  orderAdjustments,
 };
 
 export const schema = {

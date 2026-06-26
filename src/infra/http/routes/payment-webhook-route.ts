@@ -4,8 +4,15 @@ import { z } from 'zod';
 
 import { UnexpectedError } from '@/core/errors/unexpected-error';
 import { PaymentNotFoundError } from '@/domain/orders/application/errors/payment-not-found-error';
+import { ApplyOrderAdjustmentService } from '@/domain/orders/application/services/apply-order-adjustment-service';
 import { HandlePaymentGatewayWebhookService } from '@/domain/orders/application/services/handle-payment-gateway-webhook-service';
+import { DrizzleOrderAdjustmentsRepository } from '@/infra/db/repositories/drizzle-order-adjustments-repository';
+import { DrizzleOrderItemsRepository } from '@/infra/db/repositories/drizzle-order-items-repository';
+import { DrizzleOrdersRepository } from '@/infra/db/repositories/drizzle-orders-repository';
 import { DrizzlePaymentsRepository } from '@/infra/db/repositories/drizzle-payments-repository';
+import { DrizzleProductFillingsRepository } from '@/infra/db/repositories/drizzle-product-fillings-repository';
+import { DrizzleProductSizesRepository } from '@/infra/db/repositories/drizzle-product-sizes-repository';
+import { DrizzleProductsRepository } from '@/infra/db/repositories/drizzle-products-repository';
 import { AbacatePayPaymentGateway } from '@/infra/payment/abacate-pay/abacate-pay-payment-gateway';
 import { env } from '../env';
 
@@ -64,8 +71,19 @@ export const paymentWebhookRoute: FastifyPluginAsyncZod = async (app) => {
         }
 
         const paymentsRepository = new DrizzlePaymentsRepository();
+        const applyOrderAdjustmentService = new ApplyOrderAdjustmentService(
+          new DrizzleOrderAdjustmentsRepository(),
+          new DrizzleOrdersRepository(),
+          new DrizzleOrderItemsRepository(),
+          new DrizzleProductsRepository(),
+          new DrizzleProductSizesRepository(),
+          new DrizzleProductFillingsRepository()
+        );
         const handlePaymentGatewayWebhookService =
-          new HandlePaymentGatewayWebhookService(paymentsRepository);
+          new HandlePaymentGatewayWebhookService(
+            paymentsRepository,
+            applyOrderAdjustmentService
+          );
         const result = await handlePaymentGatewayWebhookService.execute({
           event: paymentEvent,
         });
